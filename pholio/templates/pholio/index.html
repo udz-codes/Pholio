@@ -1,0 +1,28 @@
+{% extends "pholio/layout.html" %}
+
+{% block title %}Pholio{% endblock %}
+
+{% block body %}
+    {% if user.is_authenticated %}
+        <h1>Welcome</h1>
+    {% else %}
+    <div class="col-12 p-0 m-0 animated_background d-flex flex-column align-items-center justify-content-around" style="min-height: 100vh; max-height: 200vh;">
+        <div class="col-12 p-0 m-0 d-flex flex-column flex-sm-row align-items-center justify-content-around mt-3 mt-md-0">
+            <div class="col-12 col-sm-8 pt-0 pl-0 pl-sm-5 pr-0 d-flex flex-column align-items-center align-items-sm-start">
+                <h1 class="main-heading text-light font-weight-bold">Get your personal portfolio today</h1>
+                <h3 class="main-subheading col-sm-8 text-light pt-3 p-sm-2" style="z-index: 50;">Setup a professional looking portfolio in minutes and showoff your skills and projects.</h3>
+            </div>
+            <div class="col-12 col-sm-4 d-flex flex-column justify-content-center align-items-center mt-3 mt-sm-0 pt-sm-0">
+                <a class="btn shadow-lg button rounded-pill" href="{% url 'register' %}"><span>Register</span></a>
+                <a class="btn shadow-lg button rounded-pill mt-3" href="{% url 'login' %}"><span>Login</span></a>
+            </div>
+        </div>
+        <div class="col-11 d-flex align-items-center justify-content-center mb-4 mb-md-0 mt-4 mt-md-0">
+            <iframe class="shadow-lg" width="560" height="315" src="https://www.youtube.com/embed/Vz7sHj9eIv0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <!-- <svg class="main-wave col-12 p-0 m-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" style="bottom: 0; position: fixed">
+            <path fill="#FF0044" fill-opacity="1" d="M0,160L48,165.3C96,171,192,181,288,186.7C384,192,480,192,576,186.7C672,181,768,171,864,144C960,117,1056,75,1152,85.3C1248,96,1344,160,1392,192L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+        </svg> -->
+    </div>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends "pholio/layout.html" %}
+
+{% block title %}Pholio{% endblock %}
+
+{% block body %}
+    <div class="col-12 d-flex flex-row justify-content-center align-items-center m-0 p-0 animated_background" style="min-height: 92vh;">
+        <!-- <div class="col-0 col-sm-8" >
+        
+        </div> -->
+        <div class="col-12 col-sm-4 d-flex flex-column justify-content-center align-items-center m-0">
+            {% if message %}
+            <div class="alert alert-{{ type }}" role="alert">
+                {{ message }}
+            </div>
+            {% endif %}
+            <div class="col-11 shadow-lg card p-4" style="border-radius: 1em; background-color: rgb(227, 237, 255);">
+                <h3 class="text-dark">Login</h3>
+                <small class="form-text text-muted">Please sign in to continue.</small>
+                <form action="{% url 'login' %}" method="post" class="mt-4">
+                {% csrf_token %}
+                    <div class="form-group">
+                        <label>Email address</label>
+                        <input autofocus type="email" class="form-control" id="email-input" name="email" aria-describedby="emailHelp" autocomplete="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" class="form-control" id="password-input" name="password" autocomplete="current-password" required>
+                    </div>
+                    <p class="h6 text-muted text-center m-0" style="font-size: small;">Forgot account password ? <a href="{% url 'reset_password' %}" class="text-danger">Reset Password</a></p>
+                    <div class="form-group d-flex flex-row mt-4">
+                        <button type="submit" class="col-12 btn btn-primary form-control">Login</button>
+                        <!-- <button class="btn btn-danger float-right form-control ml-2">
+                            <i class="fa fa-google" aria-hidden="true"></i>
+                        </button> -->
+                    </div>
+                </form>
+                <p class="h6 text-muted text-center">Don't have an account ? <a href="{% url 'register' %}">Register</a></p>
+            </div>
+        
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const pills = document.querySelectorAll('.nav-pill')
+
+            for(var i=0; i < pills.length; i++){
+                pills[i].classList.remove('active')
+            }
+
+            document.querySelector('#login-pill').classList.add('active')
+        })
+    </script>
+{% endblock %}

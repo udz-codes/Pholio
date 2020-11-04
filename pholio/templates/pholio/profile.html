@@ -1,0 +1,1583 @@
+{% extends "pholio/layout.html" %}
+
+{% block title %}Pholio - Profile{% endblock %}
+
+{% block body %}
+    <!-- Navbar ------------------------------------------------------------------------------------------------------- -->
+    <nav class="navbar navbar-dark profile-nav fixed-bottom col-12 d-flex flex-row flex-wrap align-items-center justify-content-center m-0 p-1" style="z-index: 777;">
+        <div class="col-12 col-sm-6 d-flex flex-row flex-wrap align-items-center justify-content-between p-0 m-0" style="z-index: 555;">
+            <a class="btn btn-light btn-sm text-danger font-weight-bold m-1 m-sm-2 nav-button shadow-lg flex-fill" data-view="introduction" id="introduction" href="#introduction-view">Introduction</a>
+            <a class="btn btn-light btn-sm text-danger font-weight-bold m-1 m-sm-2 nav-button shadow-lg flex-fill" data-view="experience" id="experience" href="#experience-view">Experience</a>
+            <a class="btn btn-light btn-sm text-danger font-weight-bold m-1 m-sm-2 nav-button shadow-lg flex-fill" data-view="project" id="project" href="#project-view">Projects</a>
+            <a class="btn btn-light btn-sm text-danger font-weight-bold m-1 m-sm-2 nav-button shadow-lg flex-fill" data-view="education" id="education" href="#education-view">Education</a>
+            <a class="btn btn-light btn-sm text-danger font-weight-bold m-1 m-sm-2 nav-button shadow-lg flex-fill" data-view="skills" id="skills" href="#skills-view">Skills</a>
+            <a class="btn btn-light btn-sm text-danger font-weight-bold m-1 m-sm-2 nav-button shadow-lg flex-fill" data-view="certifications" id="certifications" href="#certifications-view">Certifications</a>
+        </div>
+    </nav>
+    <div class="col-12 d-flex flex-column align-items-center mb-3 mb-sm-5 pb-5">
+    
+        <div class="col-12 col-sm-8 mb-5 pb-5 mb-sm-4 pb-sm-0">
+
+            <div class="col-12 p-0 m-0 mt-5 d-flex flex-column align-items-center justify-content-center">
+                <div class="col-12 p-0 m-0 d-flex flex-row align-items-center justify-content-center">
+                    <input class="form-control col-10 col-sm-4 border-primary text-primary" type="text" id="myInput" style="box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0), 0 0 0px rgba(255, 0, 0, 0);" readonly>
+                    <button class="btn btn-primary ml-2" onclick="copyFunction()"><i class="far fa-copy" style="box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0), 0 0 0px rgba(255, 0, 0, 0);"></i></button>
+                </div>
+                <small class="mt-2 text-dark">Copy and share your portfolio with the world.</small>
+            </div>
+            <script>
+                var base = window.location.host
+
+                document.querySelector("#myInput").value = base + "/" + "{{data.username}}"
+
+                function copyFunction() {
+                    /* Get the text field */
+                    var copyText = document.getElementById("myInput");
+
+                    /* Select the text field */
+                    copyText.select();
+                    copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+
+                    /* Copy the text inside the text field */
+                    document.execCommand("copy");
+
+                    /* Alert the copied text */
+                    alert("Copied '" + copyText.value + "' to clipboard.");
+                }
+            </script>
+            <!-- Choose sections ------------------------------------------------------------------------------------------------------- -->
+            <div class="col-12 p-0 m-0 mt-5">
+                <div class="card shadow border-0" style="border-radius: 1em;">
+                    <h5 class="card-header collapsed border-0" data-toggle="collapse" href="#collapse-choices" aria-expanded="true" style="cursor: pointer; background-color: rgba(0, 0, 0, 0);">
+                        <p aria-controls="collapse-choices" id="heading-{{category.title}}" class="d-flex flex-column align-items-center justify-content-between skills-head text-dark p-0 m-0">
+                            <span class="text-danger text-center mb-2 mt-1" style="font-size: larger;">Sections visibility</span>
+                            <i class="fa fa-chevron-down text-muted"></i>
+                        </p>
+                    </h5>
+                    <div id="collapse-choices" class="collapse" aria-labelledby="heading-choices">
+                        <hr class="col-12 p-0 m-0">
+                        <div class="card-body p-2 pb-4 d-flex flex-column align-items-center justify-content-center">
+                            
+                            <div class="col-12 col-sm-4 d-flex flex-row align-items-center justify-content-between mt-3">
+                                <p class="h4 p-0 m-0">About</p>
+                                {% if sections.about %}
+                                    <button class="btn btn-danger btn-sm sectionButtons about1" id="sec-about" data-name="about"><i class="fas fa-check"></i></button>
+                                {% else %}
+                                    <button class="btn btn-light text-light border-danger btn-sm sectionButtons about0" id="sec-about" data-name="about"><i class="fas fa-check"></i></button>
+                                {% endif %}
+                            </div>
+
+                            <div class="col-12 col-sm-4 d-flex flex-row align-items-center justify-content-between mt-3">
+                                <p class="h4 p-0 m-0">Experience</p>
+                                {% if sections.experience %}
+                                    <button class="btn btn-danger btn-sm sectionButtons experience1" id="sec-experience" data-name="experience"><i class="fas fa-check"></i></button>
+                                {% else %}
+                                    <button class="btn btn-light text-light border-danger btn-sm sectionButtons experience0" id="sec-experience" data-name="experience"><i class="fas fa-check"></i></button>
+                                {% endif %}
+                            </div>
+
+                            <div class="col-12 col-sm-4 d-flex flex-row align-items-center justify-content-between mt-3">
+                                <p class="h4 p-0 m-0">Projects</p>
+                                {% if sections.projects %}
+                                    <button class="btn btn-danger btn-sm sectionButtons projects1" id="sec-projects" data-name="projects"><i class="fas fa-check"></i></button>
+                                {% else %}
+                                    <button class="btn btn-light text-light border-danger btn-sm sectionButtons projects0" id="sec-projects" data-name="projects"><i class="fas fa-check"></i></button>
+                                {% endif %}
+                            </div>
+
+                            <div class="col-12 col-sm-4 d-flex flex-row align-items-center justify-content-between mt-3">
+                                <p class="h4 p-0 m-0">Education</p>
+                                {% if sections.education %}
+                                    <button class="btn btn-danger btn-sm sectionButtons education1" id="sec-education" data-name="education"><i class="fas fa-check"></i></button>
+                                {% else %}
+                                    <button class="btn btn-light text-light border-danger btn-sm sectionButtons education0" id="sec-education" data-name="education"><i class="fas fa-check"></i></button>
+                                {% endif %}
+                            </div>
+
+                            <div class="col-12 col-sm-4 d-flex flex-row align-items-center justify-content-between mt-3">
+                                <p class="h4 p-0 m-0">Skills</p>
+                                {% if sections.skills %}
+                                    <button class="btn btn-danger btn-sm sectionButtons skills1" id="sec-skills" data-name="skills"><i class="fas fa-check"></i></button>
+                                {% else %}
+                                    <button class="btn btn-light text-light border-danger btn-sm sectionButtons skills0" id="sec-skills" data-name="skills"><i class="fas fa-check"></i></button>
+                                {% endif %}
+                            </div>
+
+                            <div class="col-12 col-sm-4 d-flex flex-row align-items-center justify-content-between mt-3">
+                                <p class="h4 p-0 m-0">Certifications</p>
+                                {% if sections.certifications %}
+                                    <button class="btn btn-danger btn-sm sectionButtons" id="sec-certifications" data-name="certifications"><i class="fas fa-check"></i></button>
+                                {% else %}
+                                    <button class="btn btn-light text-light border-danger btn-sm sectionButtons" id="sec-certifications" data-name="certifications"><i class="fas fa-check"></i></button>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <script>
+
+                            const secs = document.querySelectorAll(".sectionButtons")
+
+                            for(var i=0; i<secs.length; i++){
+                                
+                                secs[i].onclick = function(){
+                                    toggleSection(this.dataset.name)
+                                }
+
+                            }
+
+                            function toggleSection(section_name){
+                                fetch(`/user/profile/section`,{
+                                    method: 'POST',
+                                    body: JSON.stringify({
+                                        section_name: section_name,
+                                    })
+                                })
+                                .then(()=>{
+                                    const sec_element = document.querySelector(`#sec-${section_name}`)
+
+                                    if(sec_element.classList.contains("btn-danger")){
+                                        sec_element.classList.remove("btn-danger")
+                                        sec_element.classList.add("btn-light")
+                                        sec_element.classList.add("text-light")
+                                        sec_element.classList.add("border-danger")
+                                    }else{
+                                        sec_element.classList.add("btn-danger")
+                                        sec_element.classList.remove("btn-light")
+                                        sec_element.classList.remove("text-light")
+                                        sec_element.classList.remove("border-danger")
+                                    }
+                                })
+                            }
+
+                        </script>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Views ------------------------------------------------------------------------------------------------------- -->
+            <div id="introduction-view" class="card shadow-sm mt-5 p-3 align-items-center profile-view">
+                <div class="col-12 p-0 m-0 d-flex align-items-center justify-content-sm-center">
+                    <h1 class="text-sm-center m-0">Introduction</h1>
+                    <div class="col-12 p-0 position-absolute">
+                        <button data-toggle="modal" data-target="#socialLinks" class="social-tip float-right btn btn-danger font-weight-bold"><i class="fas fa-user"></i></button>
+                    </div>
+
+                    <div class="modal fade" id="socialLinks" tabindex="-1" role="dialog" aria-labelledby="socialLinksLabel" aria-hidden="true" style="background-color: rgba(0, 0, 0, 0.247); backdrop-filter: blur(5px);">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content" style="border-radius: 1em; background-color: rgb(248, 248, 248);">
+                            <div class="modal-header text-danger pt-3 pb-0" style="border: 0; border-top-left-radius: 1em; border-top-right-radius: 1em;">
+                                <h5 class="modal-title" id="socialLinksLabel">Social Media Links</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true" class="text-danger">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body" style="border-bottom-left-radius: 1em; border-bottom-right-radius: 1em;">
+                                <form action="{% url 'socials' %}" method="post" class="m-0 col-12 p-0 d-flex flex-column align-items-center justify-content-center">
+                                    {% csrf_token %}
+                                    <div class="col-12 d-flex flex-row align-items-center justify-content-between p-3">
+                                        <h2 class="m-0 p-0 col-2 text-center" style="color: #0077B5"><i class="fab fa-linkedin p-0 m-0"></i></h2>
+                                        {% if socials.linkedin %}
+                                            <input value="{{socials.linkedin}}" placeholder="linkedin profile url..." name="linkedin" type="text" class="form-control col-10 ml-3" style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);color: #0077B5;">
+                                        {% else %}
+                                            <input placeholder="linkedin profile url..." name="linkedin" type="text" class="form-control col-10 ml-3" style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);color: #0077B5;">
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-12 d-flex flex-row align-items-center justify-content-between p-3">
+                                        <h2 class="m-0 p-0 col-2 text-center" style="color: #353535"><i class="fab fa-github-square p-0 m-0"></i></h2>
+                                        {% if socials.github %}
+                                            <input value="{{socials.github}}" placeholder="github profile url..." name="github" type="text" class="form-control col-10 ml-3" style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);color: #2C974B;">
+                                        {% else %}
+                                            <input placeholder="github profile url..." name="github" type="text" class="form-control col-10 ml-3" style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);color: #2C974B;">
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-12 d-flex flex-row align-items-center justify-content-between p-3">
+                                        <h2 class="m-0 p-0 col-2 text-center" style="color: #1A91DA"><i class="fab fa-twitter-square"></i></h2>
+                                        {% if socials.twitter %}
+                                            <input value="{{socials.twitter}}" placeholder="twitter profile url..." name="twitter" type="text" class="form-control col-10 ml-3" style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);color: #1A91DA;">
+                                        {% else %}
+                                            <input placeholder="twitter profile url..." name="twitter" type="text" class="form-control col-10 ml-3" style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);color: #1A91DA;">
+                                        {% endif %}
+                                    </div>
+                                    <button class="btn btn-danger font-weight-bold col-12 mt-3" type="submit">Save</button>
+                                </form>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr class="col-12">
+            <form id="introSave" class="col-12 p-0 m-0 d-flex flex-column align-items-center justify-content-center" onsubmit="return false">    
+                <div class="col-12 d-flex flex-column align-items-center justify-content-center mt-3 p-0 m-0">
+                    <div class="col-12 d-sm-flex flex-sm-row mb-3 p-0 m-0">
+                        <h5 class="col-12 col-sm-2 text-sm-right p-0">Full Name:</h5>
+                        <input type="text" class="col-12 col-sm-9 form-control text-muted ml-sm-3 text-monospace" id="nameInput" value="{{data.name}}" disabled="true" placeholder="Your full name..." required>
+                    </div>
+                    <div class="col-12 d-sm-flex flex-sm-row mb-3 p-0 m-0">
+                        <h5 class="col-12 col-sm-2 text-sm-right p-0">Title / Tagline:</h5>
+                        <input type="text" class="col-12 col-sm-9 form-control text-muted ml-sm-3 text-monospace" id="titleInput" value="{{data.title}}" placeholder="Words that describe you best..." disabled="true">
+                    </div>
+                    <div class="col-12 d-sm-flex flex-sm-row mb-3 p-0 m-0">
+                        <h5 class="col-12 col-sm-2 text-sm-right p-0">About:</h5>
+                        <textarea
+                            class="col-12 col-sm-9 form-control text-muted ml-sm-3 text-monospace"
+                            id="aboutInput"
+                            disabled="true"
+                            rows="4"
+                            oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
+                            placeholder="A short paragraph about yourself..."
+                        >{{data.about}}</textarea>
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-6 align-items-center justify-content-around" id="introSubmission" style="display: none;">
+                    <button type="submit" class="save-tip btn btn-success rounded-circle" style="width: 4rem; height: 4rem;">
+                        <i class="fas fa-check ml-auto mr-auto" style="font-size: 2rem;"></i>
+                    </button>
+                    <button id="introCancel" class="cancel-tip btn btn-danger rounded-circle" style="width: 4rem; height: 4rem;">
+                        <i class="fas fa-times-circle ml-auto mr-auto" style="font-size: 2rem;"></i>
+                    </button>
+                </div>
+
+            </form>
+
+            <button id="introEdit" class="edit-tip btn btn-primary rounded-circle" style="width: 4rem; height: 4rem;">
+                <i class="fas fa-pen-nib ml-auto mr-auto" style="font-size: 1.5rem;"></i>
+            </button>
+
+                <script>
+                    document.querySelector("#introEdit").onclick = function(){
+                        document.querySelector("#introEdit").style.display="none"
+                        document.querySelector("#introSubmission").style.display="flex"
+
+                        document.querySelector("#nameInput").removeAttribute('disabled')
+                        document.querySelector("#titleInput").removeAttribute('disabled')
+                        document.querySelector("#aboutInput").removeAttribute('disabled')
+
+                        document.querySelector("#introduction-view").classList.remove("shadow-sm")
+                        document.querySelector("#introduction-view").classList.add("shadow-lg")
+                        document.querySelector("#introduction-view").style.backgroundColor = "#FAFAFA"
+
+                        document.querySelector("#nameInput").classList.remove("text-muted")
+                        document.querySelector("#titleInput").classList.remove("text-muted")
+                        document.querySelector("#aboutInput").classList.remove("text-muted")
+
+                        document.querySelector("#nameInput").classList.add("text-danger")
+                        document.querySelector("#titleInput").classList.add("text-primary")
+                        document.querySelector("#aboutInput").classList.add("text-dark")
+                    }
+
+                    document.querySelector("#introCancel").onclick = function(){
+                        window.location.reload()
+                    }
+
+                    document.querySelector("#introSave").addEventListener('submit', function(){
+                        
+                        const name = document.querySelector("#nameInput").value
+                        const title = document.querySelector("#titleInput").value
+                        const about = document.querySelector("#aboutInput").value
+
+                        fetch("/user/profile/introduction",{
+                            method: 'PUT',
+                            body: JSON.stringify({
+                                name: name,
+                                title: title,
+                                about: about
+                            })
+                        })
+                        .then(()=>{
+                            window.location.reload()
+                        })
+
+                    })
+                </script>
+                
+            </div>
+
+            <div id="experience-view" class="card shadow mt-5 p-3 profile-view salign-items-center">
+                <h1 class="text-sm-center pl-2 pl-sm-0 m-0">Experience</h1>
+                <div class="col-12 position-absolute">
+                    <a data-toggle="modal" data-target="#addExperienceModal" id="create-experience" class="float-right mr-4 text-danger h1" style="text-decoration: none; cursor: pointer;">
+                        <i class="fas fa-plus-square"></i>
+                    </a>
+                </div>
+                {% for experience in experiences %}
+                    <div class="col-12 col-10 mt-3" id="experience-id-{{experience.id}}">
+                        <hr class="col-12 p-0 m-0 mb-4">
+                        <div class="col-12 p-0 m-0 d-flex flex-row align-items-center justify-content-between">
+                            <h5 class="text-dark font-weight-bold" id="title-{{experience.id}}">{{experience.title}}</h5>    
+                            <button data-toggle="modal" data-target="#experienceModal" class="btn btn-sm btn-outline-primary rounded-circle edit-button" data-id="{{experience.id}}">
+                                <i class="fas fa-pen-nib"></i>
+                            </button>                  
+                        </div>
+                        <h6 class="text-muted font-weight-bold" id="company-{{experience.id}}">{{experience.company}}</h6>
+                        <h6 class="font-weight-normal">
+                            {% if experience.enddate %}
+                            <span id="start-{{experience.id}}">{{experience.startdate}}</span> - <span id="end-{{experience.id}}">{{experience.enddate}}</span>
+                            {% else %}
+                            <span id="start-{{experience.id}}">{{experience.startdate}}</span> - <span id="end-{{experience.id}}">Present</span>
+                            {% endif %}
+                        </h6>
+                        <p class="text-secondary" id="description-{{experience.id}}">{{experience.description}}</p>
+                    </div>
+                {% endfor %}
+
+                <div class="modal fade" id="experienceModal" tabindex="-1" role="dialog" aria-labelledby="experienceModalLabel" aria-hidden="true" style="background-color: rgba(0, 0, 0, 0.247); backdrop-filter: blur(5px);">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content" style="border-radius: 1em; background-color: rgb(248, 248, 248);">
+                        <div class="modal-header text-primary pt-3 pb-0" style="border: 0; border-top-left-radius: 1em; border-top-right-radius: 1em;">
+                            <h5 class="modal-title" id="experienceModalLabel">Edit Experience</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" class="text-primary">&times;</span>
+                            </button>
+                        </div>
+
+                        <div class="modal-body" style="border-bottom-left-radius: 1em; border-bottom-right-radius: 1em;">
+                            <form id="submit-experience" onsubmit="return false">
+                                <div class="row form-row mb-3">
+                                    <div class="col-6 form-group mb-0">
+                                        <label>Title <small class="text-danger">*</small></label>
+                                        <input autofocus value="" id="title-input" type="text" class="form-control" placeholder="Ex: Web developer..." style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);" required>
+                                    </div>
+                                    <div class="col-6 form-group mb-0">
+                                        <label>Company <small class="text-danger">*</small></label>
+                                        <input value="" id="company-input" type="text" class="form-control" placeholder="Ex: Google..." style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);" required>
+                                    </div>
+                                </div>
+
+                                <div class="row form row">
+                                    <div class="col-6 form-group mb-0 pr-1">
+                                        <label>Start Date <small class="text-danger">*</small></label>
+                                        <input type="date" id="start-input" name="birthday" class="form-control" required>
+                                    </div>
+                                    <div class="col-6 form-group mb-0 pl-1">
+                                        <label>End Date</label>
+                                        <input type="date" id="end-input" name="birthday" class="form-control" required>
+                                        <div class="row p-0 m-0 mt-2 align-items-center">
+                                            <input type="checkbox" id="check-edit-exp"><small class="p-0 m-0 ml-1 text-muted font-weight-bold">Currently work here</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <script>
+                                    document.querySelector("#check-edit-exp").onclick = () => {
+                                        const check = document.querySelector("#check-edit-exp")
+
+                                        if(check.checked == true){
+                                            document.querySelector("#end-input").setAttribute('disabled','true')
+                                            document.querySelector("#end-input").value=''
+                                            document.querySelector("#end-input").removeAttribute('required')
+                                        }else{
+                                            document.querySelector("#end-input").removeAttribute('disabled')
+                                            document.querySelector("#end-input").value=''
+                                            document.querySelector("#end-input").setAttribute('required','true')
+                                        }
+                                    }
+                                </script>
+                                <!-- <small class="text-muted">Note: Date will not be visible to viewer, only month and year.</small> -->
+                                
+                                <div class="form-group mt-3">
+                                    <label for="about-input">Description</label>
+                                    <textarea id="description-input" class="form-control" name="about" style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);" placeholder="description of your job..." rows="6"></textarea>
+                                </div>
+                                <div class="row col-12 p-0 m-0">
+                                    <button id="delete-experience" class="delete-tip btn btn-danger font-weight-bold mr-3 p-2">
+                                        <i class="fas fa-trash-alt h5 p-0 m-0"></i>
+                                    </button>
+                                    <input type="submit" class="btn btn-primary font-weight-bold flex-fill">
+                                </div>
+                            </form>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="addExperienceModal" tabindex="-1" role="dialog" aria-labelledby="addExperienceModalLabel" aria-hidden="true" style="background-color: rgba(0, 0, 0, 0.247); backdrop-filter: blur(5px);">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content" style="border-radius: 1em; background-color: rgb(248, 248, 248);">
+                        <div class="modal-header text-danger pt-3 pb-0" style="border: 0; border-top-left-radius: 1em; border-top-right-radius: 1em;">
+                            <h5 class="modal-title" id="addExperienceModalLabel">Add Experience</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" class="text-danger">&times;</span>
+                            </button>
+                        </div>
+
+                        <div class="modal-body" style="border-bottom-left-radius: 1em; border-bottom-right-radius: 1em;">
+                            
+                            <form id="add-experience" onsubmit="return false">     
+                                <div class="row form-row mb-3">
+                                    <div class="col-6 form-group mb-0">
+                                        <label>Title <small class="text-danger">*</small></label>
+                                        <input autofocus value="" id="title-add" type="text" class="form-control" placeholder="Ex: Web developer..." style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);" required>
+                                    </div>
+                                    <div class="col-6 form-group mb-0">
+                                        <label>Company <small class="text-danger">*</small></label>
+                                        <input value="" id="company-add" type="text" class="form-control" placeholder="Ex: Google..." style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);" required>
+                                    </div>
+                                </div>
+
+                                <div class="row form row">
+                                    <div class="col-6 form-group mb-0 pr-1">
+                                        <label>Start Date <small class="text-danger">*</small></label>
+                                        <input type="date" id="start-add" name="birthday" class="form-control" required>
+                                    </div>
+                                    <div class="col-6 form-group mb-0 pl-1">
+                                        <label>End Date</label>
+                                        <input type="date" id="end-add" name="birthday" class="form-control" required>
+                                        <div class="row p-0 m-0 mt-2 align-items-center">
+                                            <input type="checkbox" id="check-exp"><small class="p-0 m-0 ml-1 text-muted font-weight-bold">Currently work here</small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <script>
+                                    document.querySelector("#check-exp").onclick = () => {
+                                        const check = document.querySelector("#check-exp")
+
+                                        if(check.checked == true){
+                                            document.querySelector("#end-add").setAttribute('disabled','true')
+                                            document.querySelector("#end-add").value=''
+                                            document.querySelector("#end-add").removeAttribute('required')
+                                        }else{
+                                            document.querySelector("#end-add").removeAttribute('disabled')
+                                            document.querySelector("#end-add").value=''
+                                            document.querySelector("#end-add").setAttribute('required','true')
+                                        }
+                                    }
+                                </script>
+                                <!-- <small class="text-muted">Note: Date will not be visible to viewer, only month and year.</small> -->
+                                
+                                <div class="form-group mt-3">
+                                    <label for="about-input">Description</label>
+                                    <textarea id="description-add" class="form-control" name="about" style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);" placeholder="description of your job..." rows="6"></textarea>
+                                </div>
+
+                                <input type="submit" class="btn btn-danger font-weight-bold col-12">
+                            </form>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    const elements = document.querySelectorAll(".edit-button")
+
+                    for(var i=0; i < elements.length; i++){
+                        elements[i].onclick= function(){
+                            fillform(this.dataset.id)
+                        }
+                    }
+
+                    document.querySelector("#add-experience").addEventListener('submit', function(){ 
+                        const title = document.querySelector("#title-add").value
+                        const company = document.querySelector("#company-add").value
+                        const description = document.querySelector("#description-add").value
+
+                        // var sep = x.split('-')
+                        const startdate = document.querySelector("#start-add").value
+                        
+                        // var sep1 = .split('-')
+                        let enddate = document.querySelector("#end-add").value
+                        
+                        if(enddate.length != 10){
+                            enddate=null
+                        }
+
+                        fetch(`/user/profile/addExperience`, {
+                            method: 'POST',
+                            body: JSON.stringify({
+                                title: title,
+                                company: company,
+                                startdate: startdate,
+                                enddate: enddate,
+                                description: description
+                            })
+                        })
+                        .then(function(){
+                            window.location.reload();
+                        })
+
+                    })
+
+                    function fillform(exp_id){
+                        document.querySelector("#title-input").value = document.querySelector(`#title-${exp_id}`).innerHTML
+                        document.querySelector("#company-input").value = document.querySelector(`#company-${exp_id}`).innerHTML
+                        document.querySelector("#description-input").value = document.querySelector(`#description-${exp_id}`).innerHTML
+
+                        // Start Date
+                        const startdate = document.querySelector(`#start-${exp_id}`).innerHTML
+                        var sep = startdate.split('-')
+
+                        document.querySelector("#start-input").value = sep[2].toString() + "-" + sep[1].toString() + "-" + sep[0].toString()
+
+                        // End Date
+                        const enddate = document.querySelector(`#end-${exp_id}`).innerHTML
+
+                        if(enddate != 'Present'){
+                            var sep1 = enddate.split('-')
+                            document.querySelector("#end-input").value = sep1[2].toString() + "-" + sep1[1].toString() + "-" + sep1[0].toString()
+                            document.querySelector("#end-input").removeAttribute('disabled')
+                            document.querySelector("#check-edit-exp").checked=false
+                        }
+                        else{
+                            document.querySelector("#end-input").value = ''
+                            document.querySelector("#end-input").setAttribute('disabled','true')
+                            document.querySelector("#check-edit-exp").checked=true
+                        }
+
+                        document.querySelector("#submit-experience").addEventListener('submit', function(){
+                            
+                            const title = document.querySelector("#title-input").value
+                            const company = document.querySelector("#company-input").value
+                            const startdate = document.querySelector("#start-input").value
+                            
+                            const description = document.querySelector("#description-input").value
+
+                            let enddate = document.querySelector("#end-input").value
+
+                            if(enddate.length != 10){
+                                enddate=null
+                            }
+
+                            fetch(`/user/profile/experience/${exp_id}`, {
+                                method: 'PUT',
+                                body: JSON.stringify({
+                                    title: title,
+                                    company: company,
+                                    startdate: startdate,
+                                    enddate: enddate,
+                                    description: description
+                                })
+                            })
+                            .then(() => {
+                                document.querySelector(`#title-${exp_id}`).innerHTML = title
+                                document.querySelector(`#company-${exp_id}`).innerHTML = company
+                                document.querySelector(`#description-${exp_id}`).innerHTML = description
+
+                                // var sep = startdate.split('-')
+                                // document.querySelector(`#start-${exp_id}`).innerHTML = sep[2].toString() + "-" + sep[1].toString() + "-" + sep[0].toString()
+                                
+                                // if(!enddate){
+                                //     document.querySelector(`#end-${exp_id}`).innerHTML = 'Present'
+                                // }else{
+                                //     var sep1 = enddate.split('-')
+                                //     document.querySelector(`#end-${exp_id}`).innerHTML = sep1[2].toString() + "-" + sep1[1].toString() + "-" + sep1[0].toString()
+                                // }
+                                
+                                $('#experienceModal').modal('hide');
+                                window.location.reload()
+                            })
+                        })
+
+                        document.querySelector('#delete-experience').onclick=function(){
+
+                            var r = confirm("Are you sure you want to delete your experience ?");
+
+                            if (r == true) {
+                                fetch(`/user/profile/experience/${exp_id}`, {
+                                    method: 'POST',
+                                })
+                                .then(()=>{
+                                    $('#experienceModal').modal('hide');
+                                    // document.querySelector(`#experience-id-${exp_id}`).style.display="none"
+                                    window.location.reload()
+                                })
+                            }
+                            else{
+                                fillform(exp_id)
+                            }
+                        }
+                    }
+
+
+                </script>
+
+            </div>
+
+            <div id="project-view" class="card shadow mt-5 p-3 profile-view">
+                <h1 class="text-sm-center pl-2 pl-sm-0 m-0">Projects</h1>
+                <div class="col-12 position-absolute">
+                    <a data-toggle="modal" data-target="#addProjectModal" id="create-project" class="float-right mr-4 text-danger h1" style="text-decoration: none; cursor: pointer;">
+                        <i class="fas fa-plus-square"></i>
+                    </a>
+                </div>
+                {% for project in projects %}
+                    <div class="col-12 col-10 mt-3" id="project-id-{{project.id}}">
+                        <hr class="col-12 p-0 m-0 mb-4">
+                        <div class="col-12 p-0 m-0 d-flex flex-row align-items-center justify-content-between">
+                            <h5 class="text-dark font-weight-bold" id="project-title-{{project.id}}">{{project.title}}</h5>    
+                            <button data-toggle="modal" data-target="#projectModal" class="btn btn-sm btn-outline-primary rounded-circle edit-project" data-id="{{project.id}}">
+                                <i class="fas fa-pen-nib"></i>
+                            </button>
+                        </div>
+                        <h6 class="font-weight-normal">
+                            {% if project.enddate %}
+                            <span id="project-start-{{project.id}}">{{project.startdate}}</span> - <span id="project-end-{{project.id}}">{{project.enddate}}</span>
+                            {% else %}
+                            <span id="project-start-{{project.id}}">{{project.startdate}}</span> - <span id="project-end-{{project.id}}">Ongoing</span>
+                            {% endif %}
+                        </h6>
+                        <p class="text-secondary" id="project-description-{{project.id}}">{{project.description}}</p>
+                        <p class="text-dark">Github: <span class="text-muted" id="project-github-{{project.id}}">{{project.github}}</span></p>
+                        <p class="text-dark">Website: <span class="text-muted" id="project-website-{{project.id}}">{{project.website}}</span></p>
+                    </div>
+                {% endfor %}
+                
+                <div class="modal fade" id="projectModal" tabindex="-1" role="dialog" aria-labelledby="projectModalLabel" aria-hidden="true" style="background-color: rgba(0, 0, 0, 0.247); backdrop-filter: blur(5px);">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content" style="border-radius: 1em; background-color: rgb(248, 248, 248);">
+                        <div class="modal-header text-primary pt-3 pb-0" style="border: 0; border-top-left-radius: 1em; border-top-right-radius: 1em;">
+                            <h5 class="modal-title" id="projectModalLabel">Edit Project</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" class="text-primary">&times;</span>
+                            </button>
+                        </div>
+
+                        <div class="modal-body" style="border-bottom-left-radius: 1em; border-bottom-right-radius: 1em;">
+                        <form  id="submit-project" onsubmit="return false">
+                            <div class="form-group">
+                                <label>Title <small class="text-danger">*</small></label>
+                                <input autofocus value="" id="project-title" type="text" class="form-control" placeholder="Project title..." style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);" required>
+                            </div>
+
+                            <div class="row form row mt-3">
+                                <div class="col-6 form-group mb-0 pr-1">
+                                    <label>Start Date <small class="text-danger">*</small></label>
+                                    <input type="date" id="project-start" class="form-control" required>
+                                </div>
+                                <div class="col-6 form-group mb-0 pl-1">
+                                    <label>End Date</label>
+                                    <input type="date" id="project-end" class="form-control" required>
+                                    <div class="row p-0 m-0 mt-2 align-items-center">
+                                        <input type="checkbox" id="check-edit-proj"><small class="p-0 m-0 ml-1 text-muted font-weight-bold">Ongoing</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <script>
+                                document.querySelector("#check-edit-proj").onclick = () => {
+                                    const check = document.querySelector("#check-edit-proj")
+
+                                    if(check.checked == true){
+                                        document.querySelector("#project-end").setAttribute('disabled','true')
+                                        document.querySelector("#project-end").value=''
+                                        document.querySelector("#project-end").removeAttribute('required')
+                                    }else{
+                                        document.querySelector("#project-end").removeAttribute('disabled')
+                                        document.querySelector("#project-end").value=''
+                                        document.querySelector("#project-end").setAttribute('required','true')
+                                    }
+                                }
+                            </script>
+                            <!-- <small class="text-muted">Note: Date will not be visible to viewer, only month and year.</small> -->
+                            
+                            <div class="form-group mt-3">
+                                <label for="about-input">Description</label>
+                                <textarea id="project-description" class="form-control" name="about" style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);" placeholder="description of your project..." rows="3"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Github Repository</label>
+                                <input autofocus value="" id="project-github" type="text" class="form-control" placeholder="https://github.com/USERNAME/repo_name" style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);">
+                            </div>
+
+                            <div class="form-group mb-4">
+                                <label>Website</label>
+                                <input autofocus value="" id="project-website" type="text" class="form-control" placeholder="www.example.com" style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);">
+                            </div>
+
+                            <div class="row col-12 p-0 m-0">
+                                <button id="delete-project" class="delete-tip btn btn-danger font-weight-bold mr-3 p-2">
+                                    <i class="fas fa-trash-alt h5 p-0 m-0"></i>
+                                </button>
+                                <input type="submit" class="btn btn-primary font-weight-bold flex-fill">
+                            </div>
+                        </form>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="addProjectModal" tabindex="-1" role="dialog" aria-labelledby="addProjectModalLabel" aria-hidden="true" style="background-color: rgba(0, 0, 0, 0.247); backdrop-filter: blur(5px);">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content" style="border-radius: 1em; background-color: rgb(248, 248, 248);">
+                        <div class="modal-header text-danger pt-3 pb-0" style="border: 0; border-top-left-radius: 1em; border-top-right-radius: 1em;">
+                            <h5 class="modal-title" id="addProjectModalLabel">Add Project</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" class="text-danger">&times;</span>
+                            </button>
+                        </div>
+
+                        <div class="modal-body" style="border-bottom-left-radius: 1em; border-bottom-right-radius: 1em;">
+                        <form  id="submitProject" onsubmit="return false">
+                            <div class="form-group">
+                                <label>Title <small class="text-danger">*</small></label>
+                                <input autofocus value="" id="project-title-add" type="text" class="form-control" placeholder="Project title..." style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);" required>
+                            </div>
+
+                            <div class="row form row mt-3">
+                                <div class="col-6 form-group mb-0 pr-1">
+                                    <label>Start Date <small class="text-danger">*</small></label>
+                                    <input type="date" id="project-start-add" class="form-control" required>
+                                </div>
+                                <div class="col-6 form-group mb-0 pl-1">
+                                    <label>End Date</label>
+                                    <input type="date" id="project-end-add" class="form-control" required>
+                                    <div class="row p-0 m-0 mt-2 align-items-center">
+                                        <input type="checkbox" id="check-proj"><small class="p-0 m-0 ml-1 text-muted font-weight-bold">Ongoing</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <script>
+                                document.querySelector("#check-proj").onclick = () => {
+                                    const check = document.querySelector("#check-proj")
+
+                                    if(check.checked == true){
+                                        document.querySelector("#project-end-add").setAttribute('disabled','true')
+                                        document.querySelector("#project-end-add").value=''
+                                        document.querySelector("#project-end-add").removeAttribute('required')
+                                    }else{
+                                        document.querySelector("#project-end-add").removeAttribute('disabled')
+                                        document.querySelector("#project-end-add").value=''
+                                        document.querySelector("#project-end-add").setAttribute('required','true')
+                                    }
+                                }
+                            </script>
+                            <!-- <small class="text-muted">Note: Date will not be visible to viewer, only month and year.</small> -->
+                            
+                            <div class="form-group mt-3">
+                                <label for="about-input">Description</label>
+                                <textarea id="project-description-add" class="form-control" name="about" style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);" placeholder="description of your project..." rows="3"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Github Repository</label>
+                                <input autofocus value="" id="project-github-add" type="text" class="form-control" placeholder="https://github.com/USERNAME/repo_name" style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);">
+                            </div>
+
+                            <div class="form-group mb-4">
+                                <label>Website</label>
+                                <input autofocus value="" id="project-website-add" type="text" class="form-control" placeholder="www.example.com" style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);">
+                            </div>
+
+                            <div class="row col-12 p-0 m-0">
+                                <input type="submit" class="btn btn-danger font-weight-bold flex-fill">
+                            </div>
+                        </form>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    const projects_elements = document.querySelectorAll(".edit-project")
+
+                    for(var i=0; i < projects_elements.length; i++){
+                        projects_elements[i].onclick= function(){
+                            fillProjectForm(this.dataset.id)
+                        }
+                    }
+
+                    document.querySelector("#submitProject").addEventListener('submit', function(){ 
+                        const title = document.querySelector("#project-title-add").value
+                        const description = document.querySelector("#project-description-add").value
+                        const github = document.querySelector("#project-github-add").value
+                        const website = document.querySelector("#project-website-add").value
+
+                        // var sep = x.split('-')
+                        const startdate = document.querySelector("#project-start-add").value
+                        
+                        // var sep1 = .split('-')
+                        let enddate = document.querySelector("#project-end-add").value
+
+                        if(enddate.length != 10){
+                            enddate=null
+                        }
+
+                        fetch(`/user/profile/addProject`, {
+                            method: 'POST',
+                            body: JSON.stringify({
+                                title: title,
+                                startdate: startdate,
+                                enddate: enddate,
+                                description: description,
+                                github: github,
+                                website: website
+                            })
+                        })
+                        .then(function(){
+                            window.location.reload();
+                        })
+                    })
+
+                    function fillProjectForm(proj_id){
+                        document.querySelector("#project-title").value = document.querySelector(`#project-title-${proj_id}`).innerHTML
+                        document.querySelector("#project-description").value = document.querySelector(`#project-description-${proj_id}`).innerHTML
+                        document.querySelector("#project-github").value = document.querySelector(`#project-github-${proj_id}`).innerHTML
+                        document.querySelector("#project-website").value = document.querySelector(`#project-website-${proj_id}`).innerHTML
+
+                        // Start Date
+                        const startdate = document.querySelector(`#project-start-${proj_id}`).innerHTML
+                        var sep = startdate.split('-')
+
+                        document.querySelector("#project-start").value = sep[2].toString() + "-" + sep[1].toString() + "-" + sep[0].toString()
+
+                        // End Date
+                        const enddate = document.querySelector(`#project-end-${proj_id}`).innerHTML
+
+                        if(enddate != 'Ongoing'){
+                            var sep1 = enddate.split('-')
+                            document.querySelector("#project-end").value = sep1[2].toString() + "-" + sep1[1].toString() + "-" + sep1[0].toString()
+                            document.querySelector("#project-end").removeAttribute('disabled')
+                            document.querySelector("#check-edit-proj").checked=false
+                        }else{
+                            document.querySelector("#project-end").value = ''
+                            document.querySelector("#project-end").setAttribute('disabled','true')
+                            document.querySelector("#check-edit-proj").checked=true
+                        }
+
+
+                        document.querySelector("#submit-project").addEventListener('submit', function(){
+                            
+                            const title = document.querySelector("#project-title").value
+                            const startdate = document.querySelector("#project-start").value
+                            const description = document.querySelector("#project-description").value
+                            const github = document.querySelector("#project-github").value
+                            const website = document.querySelector("#project-website").value
+
+                            let enddate = document.querySelector("#project-end").value
+
+                            if(enddate.length != 10){
+                                enddate=null
+                            }
+
+                            fetch(`/user/profile/project/${proj_id}`, {
+                                method: 'PUT',
+                                body: JSON.stringify({
+                                    title: title,
+                                    startdate: startdate,
+                                    enddate: enddate,
+                                    description: description,
+                                    github: github,
+                                    website: website
+                                })
+                            })
+                            .then(() => {
+                                document.querySelector(`#project-title-${proj_id}`).innerHTML = title
+                                document.querySelector(`#project-description-${proj_id}`).innerHTML = description
+                                document.querySelector(`#project-github-${proj_id}`).innerHTML = github
+                                document.querySelector(`#project-website-${proj_id}`).innerHTML = website
+
+                                // var sep = startdate.split('-')
+                                // document.querySelector(`#project-start-${proj_id}`).innerHTML = sep[2].toString() + "-" + sep[1].toString() + "-" + sep[0].toString()
+                                
+                                // var sep1 = enddate.split('-')
+                                // document.querySelector(`#project-end-${proj_id}`).innerHTML = sep1[2].toString() + "-" + sep1[1].toString() + "-" + sep1[0].toString()
+                                
+                                $('#projectModal').modal('hide');
+                                window.location.reload()
+                            })
+                        })
+
+                        document.querySelector('#delete-project').onclick=function(){
+
+                            var r = confirm("Are you sure you want to delete your project ?");
+
+                            if (r == true) {
+                                fetch(`/user/profile/project/${proj_id}`, {
+                                    method: 'POST',
+                                })
+                                .then(()=>{
+                                    $('#projectModal').modal('hide');
+                                    // document.querySelector(`#project-id-${proj_id}`).style.display="none"
+                                    window.location.reload()
+                                })
+                            }
+                            else{
+                                fillProjectForm(proj_id)
+                            }
+                        }
+                    }
+
+                </script>
+            </div>
+
+            <div id="education-view" class="card shadow mt-5 p-3 profile-view">
+                <h1 class="text-sm-center pl-2 pl-sm-0 m-0">Education</h1>
+                <div class="col-12 position-absolute">
+                    <a data-toggle="modal" data-target="#addEducationModal" id="create-education" class="float-right mr-4 text-danger h1" style="text-decoration: none; cursor: pointer;">
+                        <i class="fas fa-plus-square"></i>
+                    </a>
+                </div>
+                {% for education in educations %}
+                    <div class="col-12 col-10 mt-3" id="education-id-{{education.id}}">
+                        <hr class="col-12 p-0 m-0 mb-4">
+                        <div class="col-12 p-0 m-0 d-flex flex-row align-items-center justify-content-between">
+                            <h5 class="text-dark font-weight-bold" id="education-title-{{education.id}}">{{education.title}}</h5>
+                            <button data-toggle="modal" data-target="#educationModal" class="btn btn-sm btn-outline-primary rounded-circle edit-education" data-id="{{education.id}}">
+                                <i class="fas fa-pen-nib"></i>
+                            </button>
+                        </div>
+                        <h6 class="text-dark" id="education-field-{{education.id}}">{{education.field}}</h6>
+                        <h6 class="text-dark" id="education-school-{{education.id}}">{{education.school}}</h6>
+                        <h6 class="font-weight-normal text-muted">
+                            {% if education.endyear %}
+                            <span id="education-start-{{education.id}}">{{education.startyear}}</span> - <span id="education-end-{{education.id}}">{{education.endyear}}</span>
+                            {% else %}
+                            <span id="education-start-{{education.id}}">{{education.startyear}}</span> - <span id="education-end-{{education.id}}">Ongoing</span>
+                            {% endif %}
+                        </h6>
+                        <p class="text-secondary" id="education-description-{{education.id}}">{{education.description}}</p>
+                    </div>
+                {% endfor %}
+
+                <div class="modal fade" id="educationModal" tabindex="-1" role="dialog" aria-labelledby="educationModalLabel" aria-hidden="true" style="background-color: rgba(0, 0, 0, 0.247); backdrop-filter: blur(5px);">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content" style="border-radius: 1em; background-color: rgb(248, 248, 248);">
+                        <div class="modal-header text-primary pt-3 pb-0" style="border: 0; border-top-left-radius: 1em; border-top-right-radius: 1em;">
+                            <h5 class="modal-title" id="educationModalLabel">Edit Education</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" class="text-primary">&times;</span>
+                            </button>
+                        </div>
+
+                        <div class="modal-body" style="border-bottom-left-radius: 1em; border-bottom-right-radius: 1em;">
+                            <form id="submit-education" onsubmit="return false">
+                                <div class="form-group">
+                                    <label>Title <small class="text-danger">*</small></label>
+                                    <input autofocus value="" id="education-title" type="text" class="form-control" placeholder="Ex: Highschool, Graduation, Post Graduation" style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Field of study <small class="text-danger">*</small></label>
+                                    <input autofocus value="" id="education-field" type="text" class="form-control" placeholder="Ex: Science, Commerce, MBA, BCA" style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>School <small class="text-danger">*</small></label>
+                                    <input autofocus value="" id="education-school" type="text" class="form-control" placeholder="Ex: Harvard, GNPS School" style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);" required>
+                                </div>
+
+                                <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+                                <div class="row form row mt-3">
+                                    <div class="col-6 form-group mb-0 pr-1">
+                                        <label>Start Year <small class="text-danger">*</small></label>
+                                        <select name="education-startyear" id="education-startyear" class="form-control"></select>
+                                        <script type="text/javascript">
+                                            let start_startYear = 1800;
+                                            let start_endYear = new Date().getFullYear();
+                                            
+                                            for (i = start_endYear; i > start_startYear; i--)
+                                            {
+                                                $('#education-startyear').append($('<option />').val(i).html(i));
+                                            }
+                                        </script>
+                                    </div>
+                                    <div class="col-6 form-group mb-0 pl-1">
+                                        <label>End Year</label>
+                                        <select name="education-endyear" id="education-endyear" class="form-control"></select>
+                                        <script type="text/javascript">
+                                            let end_startYear = 1800;
+                                            let end_endYear = new Date().getFullYear();
+                                            
+                                            for (i = end_endYear; i > end_startYear; i--)
+                                            {
+                                                $('#education-endyear').append($('<option />').val(i).html(i));
+                                            }
+                                        </script>
+                                        <div class="row p-0 m-0 mt-2 align-items-center">
+                                            <input type="checkbox" id="check-edit-edu"><small class="p-0 m-0 ml-1 text-muted font-weight-bold">Ongoing</small>
+                                        </div>
+                                    </div>
+                                    <script>
+                                        document.querySelector("#check-edit-edu").onclick = () => {
+                                            const check = document.querySelector("#check-edit-edu")
+        
+                                            if(check.checked == true){
+                                                document.querySelector("#education-endyear").setAttribute('disabled','true')
+                                                document.querySelector("#education-endyear").value=''
+                                                document.querySelector("#education-endyear").removeAttribute('required')
+                                            }else{
+                                                document.querySelector("#education-endyear").removeAttribute('disabled')
+                                                document.querySelector("#education-endyear").value='2020'
+                                                document.querySelector("#education-endyear").setAttribute('required','true')
+                                            }
+                                        }
+                                    </script>
+                                    
+                                </div>
+                                
+                                <div class="form-group mt-3">
+                                    <label for="about-input">Description</label>
+                                    <textarea id="education-description" class="form-control" name="about" style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);" placeholder="Description of your education..." rows="3"></textarea>
+                                </div>
+
+                                <div class="row col-12 p-0 m-0">
+                                    <button id="delete-education" class="delete-tip btn btn-danger font-weight-bold mr-3 p-2">
+                                        <i class="fas fa-trash-alt h5 p-0 m-0"></i>
+                                    </button>
+                                    <input type="submit" class="btn btn-primary font-weight-bold flex-fill">
+                                </div>
+                            </form>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="addEducationModal" tabindex="-1" role="dialog" aria-labelledby="addEducationModalLabel" aria-hidden="true" style="background-color: rgba(0, 0, 0, 0.247); backdrop-filter: blur(5px);">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content" style="border-radius: 1em; background-color: rgb(248, 248, 248);">
+                        <div class="modal-header text-danger pt-3 pb-0" style="border: 0; border-top-left-radius: 1em; border-top-right-radius: 1em;">
+                            <h5 class="modal-title" id="addEducationModalLabel">Add Education</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" class="text-danger">&times;</span>
+                            </button>
+                        </div>
+
+                        <div class="modal-body" style="border-bottom-left-radius: 1em; border-bottom-right-radius: 1em;">
+                            <form id="submitEducation" onsubmit="return false">
+                                <div class="form-group">
+                                    <label>Title <small class="text-danger">*</small></label>
+                                    <input autofocus value="" id="education-title-add" type="text" class="form-control" placeholder="Ex: Highschool, Graduation, Post Graduation" style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Field of study <small class="text-danger">*</small></label>
+                                    <input autofocus value="" id="education-field-add" type="text" class="form-control" placeholder="Ex: Science, Commerce, MBA, BCA" style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>School <small class="text-danger">*</small></label>
+                                    <input autofocus value="" id="education-school-add" type="text" class="form-control" placeholder="Ex: Harvard, GNPS School" style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);" required>
+                                </div>
+
+                                <div class="row form row mt-3">
+                                    <div class="col-6 form-group mb-0 pr-1">
+                                        <label>Start Year <small class="text-danger">*</small></label>
+                                        <select name="education-startyear-add" id="education-startyear-add" class="form-control"></select>
+                                        <script type="text/javascript">
+                                            let start_startYear_add = 1800;
+                                            let start_endYear_add = new Date().getFullYear();
+                                            
+                                            for (i = start_endYear_add; i > start_startYear_add; i--)
+                                            {
+                                                $('#education-startyear-add').append($('<option />').val(i).html(i));
+                                            }
+                                        </script>
+                                    </div>
+                                    <div class="col-6 form-group mb-0 pl-1">
+                                        <label>End Year</label>
+                                        <select name="education-endyear-add" id="education-endyear-add" class="form-control"></select>
+                                        <script type="text/javascript">
+                                            let end_startYear_add = 1800;
+                                            let end_endYear_add = new Date().getFullYear();
+                                            
+                                            for (i = end_endYear_add; i > end_startYear_add; i--)
+                                            {
+                                                $('#education-endyear-add').append($('<option />').val(i).html(i));
+                                            }
+                                        </script>
+                                        <div class="row p-0 m-0 mt-2 align-items-center">
+                                            <input type="checkbox" id="check-edu"><small class="p-0 m-0 ml-1 text-muted font-weight-bold">Ongoing</small>
+                                        </div>
+                                    </div>
+                                    <script>
+                                        document.querySelector("#check-edu").onclick = () => {
+                                            const check = document.querySelector("#check-edu")
+        
+                                            if(check.checked == true){
+                                                document.querySelector("#education-endyear-add").setAttribute('disabled','true')
+                                                document.querySelector("#education-endyear-add").value=''
+                                                document.querySelector("#education-endyear-add").removeAttribute('required')
+                                            }else{
+                                                document.querySelector("#education-endyear-add").removeAttribute('disabled')
+                                                document.querySelector("#education-endyear-add").value='2020'
+                                                document.querySelector("#education-endyear-add").setAttribute('required','true')
+                                            }
+                                        }
+                                    </script>
+                                </div>
+                                
+                                <div class="form-group mt-3">
+                                    <label>Description</label>
+                                    <textarea id="education-description-add" class="form-control" name="about" style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);" placeholder="Description of your education..." rows="3"></textarea>
+                                </div>
+
+                                <div class="row col-12 p-0 m-0">
+                                    <input type="submit" class="btn btn-danger font-weight-bold flex-fill">
+                                </div>
+                            </form>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+
+                    document.querySelector("#submitEducation").onsubmit=function(){ 
+                        const title = document.querySelector("#education-title-add").value
+                        const description = document.querySelector("#education-description-add").value
+                        const field = document.querySelector("#education-field-add").value
+                        const school = document.querySelector("#education-school-add").value
+
+                        // var sep = x.split('-')
+                        const startyear = document.querySelector("#education-startyear-add").value
+                        
+                        let endyear = document.querySelector("#education-endyear-add").value
+
+                        // var sep1 = .split('-')
+                        if(endyear.length != 4){
+                            endyear = null
+                        }
+
+                        
+                        fetch(`/user/profile/addEducation`, {
+                            method: 'POST',
+                            body: JSON.stringify({
+                                title: title,
+                                startyear: startyear,
+                                endyear: endyear,
+                                description: description,
+                                field: field,
+                                school: school
+                            })
+                        })
+                        .then(()=>{
+                            window.location.reload();
+                        })
+
+                    }
+
+                    const education_elements = document.querySelectorAll(".edit-education")
+
+                    for(var i=0; i < education_elements.length; i++){
+                        console.log(education_elements[i])
+                        education_elements[i].onclick=function(){
+                            fillEducationForm(this.dataset.id)
+                        }
+                    }
+
+
+                    function fillEducationForm(edu_id){
+                        document.querySelector("#education-title").value = document.querySelector(`#education-title-${edu_id}`).innerHTML
+                        document.querySelector("#education-description").value = document.querySelector(`#education-description-${edu_id}`).innerHTML
+                        document.querySelector("#education-field").value = document.querySelector(`#education-field-${edu_id}`).innerHTML
+                        document.querySelector("#education-school").value = document.querySelector(`#education-school-${edu_id}`).innerHTML
+
+                        // Start Date
+                        document.querySelector("#education-startyear").value = document.querySelector(`#education-start-${edu_id}`).innerHTML
+
+                        // End Date
+                        if(document.querySelector(`#education-end-${edu_id}`).innerHTML === 'Ongoing'){
+                            document.querySelector("#education-endyear").value = ''
+                            document.querySelector("#education-endyear").setAttribute('disabled','true')
+                            document.querySelector("#check-edit-edu").checked=true
+                        }else{
+                            console.log(document.querySelector(`#education-end-${edu_id}`).innerHTML)
+                            document.querySelector("#education-endyear").value = document.querySelector(`#education-end-${edu_id}`).innerHTML
+                            document.querySelector("#education-endyear").removeAttribute('disabled')
+                            document.querySelector("#check-edit-edu").checked=false
+                        }
+
+
+                        document.querySelector("#submit-education").addEventListener('submit',function(){
+                            
+                            const title = document.querySelector("#education-title").value
+                            const startYear = document.querySelector("#education-startyear").value
+                            let endYear = document.querySelector("#education-endyear").value
+                            const description = document.querySelector("#education-description").value
+                            const field = document.querySelector("#education-field").value
+                            const school = document.querySelector("#education-school").value
+
+                            if(endYear.length != 4){
+                                endYear = null
+                            }
+
+                            fetch(`/user/profile/education/${edu_id}`, {
+                                method: 'PUT',
+                                body: JSON.stringify({
+                                    title: title,
+                                    startYear: startYear,
+                                    endYear: endYear,
+                                    description: description,
+                                    field: field,
+                                    school: school
+                                })
+                            })
+                            .then(() => {
+                                window.location.reload()
+                            })
+                        })
+
+                        document.querySelector('#delete-education').onclick=function(){
+
+                            var r = confirm("Are you sure you want to delete your education ?");
+
+                            if (r == true) {
+                                fetch(`/user/profile/education/${edu_id}`, {
+                                    method: 'POST',
+                                })
+                                .then(()=>{
+                                    $('#educationModal').modal('hide');
+                                    document.querySelector(`#education-id-${edu_id}`).style.display="none"
+                                    window.location.reload()
+                                })
+                            }
+                            else{
+                                fillEducationForm(edu_id)
+                            }
+                        }
+                    }
+
+                </script>
+
+            </div>
+
+            <div id="skills-view" class="card shadow mt-5 p-3 pb-3 profile-view">
+                <h1 class="text-center">Skills</h1>
+                <hr class="col-12">
+                <div class="col-12 d-flex flex-column align-items-center justify-content-center p-0 m-0">
+                    
+                    {% for category in skillCategories %}
+                    <div class="col-12 d-flex flex-sm-row flex-sm-nowrap flex-wrap align-items-center justify-content-center p-0 m-0 mt-4">
+                        <div class="col-12 col-sm-8 card shadow-sm border border-secondary p-0 m-0">
+                            <h5 class="card-header collapsed" href="#collapse-{{category.id}}" aria-expanded="true" data-toggle="collapse" style="cursor: pointer;">
+                                <p aria-controls="collapse-{{category.id}}" id="heading-{{category.title}}" class="collapsed d-flex align-items-center justify-content-between skills-head text-dark h6 p-0 m-0" style="text-decoration: none ;">
+                                    {{category.title}}
+                                    <i class="fa fa-chevron-down pull-right"></i>
+                                </p>
+                            </h5>
+                            <div id="collapse-{{category.id}}" class="collapse" aria-labelledby="heading-{{category.id}}">
+                                <div class="card-body pr-1 pl-1">
+                                    <ul class="row m-0 p-0 justify-content-center skillsCategories" style="list-style-type: none;" id="category-{{category.id}}">
+                                        {% for skill in skills %}
+                                            {% if skill.category == category %}
+                                            <li id="skill-{{skill.id}}" class="row p-0 font-weight-bold rounded-pill bg-dark text-white m-2" style="font-size: smaller;">
+                                                <p class="p-1 m-0 pl-3 pr-0">{{skill.name}}</p>
+                                                <a class="text-pink p-1 pr-2 skillsDel" data-skillId="{{skill.id}}" data-skillName="{{skill.name}}">
+                                                    <i class="fas fa-times-circle"></i>
+                                                </a>
+                                            </li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                    <form id="submit-skills-{{category.id}}" onsubmit="return false" class="row col-12 p-0 m-0 mt-3 pl-3 pr-3 skills-forms" data-skill="{{category.id}}">
+                                        <input autocomplete="off" type="text" class="col-8 form-control rounded-pill shadow-sm" placeholder="Add skills..." id="skill-input-{{category.id}}">
+                                        <button type="submit" class="btn btn-danger font-weight-bold rounded-pill flex-fill ml-3">Add</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <p class="text-danger mt-4 text-center" style="font-size: 1em;">Reload once to enable deletion for recently added skills.</p>
+
+                    <script>
+
+                        const categories = document.querySelectorAll(".skillsCategories")
+
+                        for(var i = 0; i < categories.length; i++)
+                        {   
+                            if(!categories[i].firstElementChild)
+                            {
+                                categories[i].classList.add('text-muted')
+                            }
+                        }
+                        
+                        const items = document.querySelectorAll(".skillsDel")
+
+                        for(var i=0; i<items.length; i++)
+                        {
+                            
+                            items[i].onclick=function(){
+                                
+                                var check = confirm(`Delete ${this.getAttribute("data-skillName")} from skills ?`)
+
+                                if(check == true){
+                                    deleteSkill(this.getAttribute("data-skillId"))
+                                }
+                            
+                            }
+
+                        }
+
+                        function deleteSkill(skill_id){
+                            fetch(`/user/profile/delSkill/${skill_id}`, {
+                            method: 'POST',
+                            })
+                            .then(()=>{
+                                document.querySelector(`#skill-${skill_id}`).style.display="none"
+                            })
+                        }
+
+                        const forms = document.querySelectorAll(".skills-forms")
+
+                        for(var j=0; j<forms.length; j++){
+                            forms[j].addEventListener('submit',function(){
+                                addSkill(this.dataset.skill)
+                            })
+                        }
+
+                        function addSkill(cat_id){
+
+                            const name = document.querySelector(`#skill-input-${cat_id}`).value
+
+                            fetch(`/user/profile/addSkill/${cat_id}`, {
+                            method: 'POST',
+                            body: JSON.stringify({
+                                name: name,
+                            })
+                            })
+                            .then(response => response.json())
+                            .then((result)=>{
+
+                                const value = document.querySelector(`#category-${cat_id}`).innerHTML + `
+                                <li class="row p-0 font-weight-bold rounded-pill bg-danger text-white m-2" style="font-size: smaller;">
+                                    <p class="p-1 m-0 pl-3 pr-3 pr-0">${name}</p>
+                                </li>
+                                `
+
+                                document.querySelector(`#category-${cat_id}`).innerHTML = value
+                                document.querySelector(`#collapse-${cat_id}`).classList.add('show')
+                                document.querySelector(`#skill-input-${cat_id}`).value = ''
+                            })
+                        }
+
+                    </script>
+
+                </div>
+            </div>
+
+            <div id="certifications-view" class="card shadow mt-5 p-3 profile-view">
+                <div class="col-12 position-absolute">
+                    <a data-toggle="modal" data-target="#addCertificateModal" id="create-certificate" class="float-right mr-4 text-danger h1" style="text-decoration: none; cursor: pointer;">
+                        <i class="fas fa-plus-square"></i>
+                    </a>
+                </div>
+                <h1 class="text-sm-center pl-2 pl-sm-0 m-0">Certificates</h1>
+                
+                {% for certificate in certifications %}
+                    <div class="col-12 col-10 mt-3" id="certificate-id-{{certificate.id}}">
+                        <hr class="col-12 p-0 m-0 mb-4">
+                        <div class="col-12 p-0 m-0 d-flex flex-row align-items-center justify-content-between">
+                            <h5 class="text-dark font-weight-bold" id="certificate-title-{{certificate.id}}">{{certificate.title}}</h5>    
+                            <button data-toggle="modal" data-target="#certificateModal" class="btn btn-sm btn-outline-primary rounded-circle edit-certificate" data-id="{{certificate.id}}">
+                                <i class="fas fa-pen-nib"></i>
+                            </button>
+                        </div>
+                        <h6 class="font-weight-normal">
+                            <span id="certificate-organisation-{{certificate.id}}">{{certificate.organisation}}</span>
+                        </h6>
+                        <h6 class="font-weight-normal">
+                            <span id="certificate-date-{{certificate.id}}">{{certificate.date}}</span>
+                        </h6>
+                        <p class="text-secondary p-0 m-0" >Credential ID: <span id="certificate-credential-{{certificate.id}}">{{certificate.credential}}</span></p>
+                        <p class="text-secondary p-0 m-0" >Certificate Link: <span id="certificate-link-{{certificate.id}}">{{certificate.certificate}}</span></p>
+                    </div>
+                {% endfor %}
+                
+                <div class="modal fade" id="certificateModal" tabindex="-1" role="dialog" aria-labelledby="certificateModalLabel" aria-hidden="true" style="background-color: rgba(0, 0, 0, 0.247); backdrop-filter: blur(5px);">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content" style="border-radius: 1em; background-color: rgb(248, 248, 248);">
+                        <div class="modal-header text-primary pt-3 pb-0" style="border: 0; border-top-left-radius: 1em; border-top-right-radius: 1em;">
+                            <h5 class="modal-title" id="certificateModalLabel">Edit Certificate</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" class="text-primary">&times;</span>
+                            </button>
+                        </div>
+
+                        <div class="modal-body" style="border-bottom-left-radius: 1em; border-bottom-right-radius: 1em;">
+                            <form id="submit-certificate" onsubmit="return false">
+                                <div class="form-group">
+                                    <label>Certification Title <small class="text-danger">*</small></label>
+                                    <input autofocus value="" id="certificate-title" type="text" class="form-control" placeholder="Ex: Advanced Java, Cloud Computing, etc." style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Issuing Organisation <small class="text-danger">*</small></label>
+                                    <input autofocus value="" id="certificate-organisation" type="text" class="form-control" placeholder="Ex: AWS, Oracle, etc." style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);" required>
+                                </div>
+
+                                <div class="form-group m-0">
+                                    <label>Date of Issue <small class="text-danger">*</small></label>
+                                    <input type="date" id="certificate-date" class="form-control" required></input>
+                                </div>
+                                <small class="text-muted">Note: Date will not be visible to viewer, only month and year.</small>
+                                
+                                <div class="form-group mt-3">
+                                    <label>Credential ID <small class="text-danger">*</small></label>
+                                    <input type="text" id="certificate-credential" class="form-control" placeholder="..."></input>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Credential Link <small class="text-danger">*</small></label>
+                                    <input type="url" id="certificate-link" class="form-control" placeholder="Ex: https://courses.edx.org/certificates/..."></input>
+                                </div>
+
+                                <div class="row col-12 p-0 m-0">
+                                    <button id="delete-certificate" class="delete-tip btn btn-danger font-weight-bold mr-3 p-2">
+                                        <i class="fas fa-trash-alt h5 p-0 m-0"></i>
+                                    </button>
+                                    <input type="submit" class="btn btn-primary font-weight-bold flex-fill">
+                                </div>
+                            </form>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="addCertificateModal" tabindex="-1" role="dialog" aria-labelledby="addCertificateModalLabel" aria-hidden="true" style="background-color: rgba(0, 0, 0, 0.247); backdrop-filter: blur(5px);">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content" style="border-radius: 1em; background-color: rgb(248, 248, 248);">
+                        <div class="modal-header text-danger pt-3 pb-0" style="border: 0; border-top-left-radius: 1em; border-top-right-radius: 1em;">
+                            <h5 class="modal-title" id="addCertificateModalLabel">Add Certificate</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" class="text-danger">&times;</span>
+                            </button>
+                        </div>
+
+                        <div class="modal-body" style="border-bottom-left-radius: 1em; border-bottom-right-radius: 1em;">
+                            <form id="submitCertificate" onsubmit="return false">
+                                <div class="form-group">
+                                    <label>Certification Title <small class="text-danger">*</small></label>
+                                    <input autofocus name="cert-title" id="certificate-title-add" type="text" class="form-control" placeholder="Ex: Advanced Java, Cloud Computing, etc." style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Issuing Organisation <small class="text-danger">*</small></label>
+                                    <input autofocus name="cert-org" id="certificate-organisation-add" type="text" class="form-control" placeholder="Ex: AWS, Oracle, etc." style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);" required>
+                                </div>
+
+                                <div class="form-group m-0">
+                                    <label>Date of Issue <small class="text-danger">*</small></label>
+                                    <input name="cert-date" type="date" id="certificate-date-add" class="form-control" required></input>
+                                </div>
+                                <small class="text-muted">Note: Date will not be visible to viewer, only month and year.</small>
+                                
+                                <div class="form-group mt-3">
+                                    <label>Credential ID <small class="text-danger">*</small></label>
+                                    <input name="cert-cred"  type="text" id="certificate-credential-add" class="form-control" placeholder="..."></input>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Credential Link <small class="text-danger">*</small></label>
+                                    <input name="cert-link" type="url" id="certificate-link-add" class="form-control" placeholder="Ex: https://courses.edx.org/certificates/..."></input>
+                                </div>
+
+                                <div class="row col-12 p-0 m-0">
+                                    <input type="submit" class="btn btn-danger font-weight-bold flex-fill">
+                                </div>
+                            </form>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+
+                    document.querySelector("#submitCertificate").addEventListener('submit',function(){ 
+                        
+                        const title = document.querySelector("#certificate-title-add").value
+                        const organisation = document.querySelector("#certificate-organisation-add").value
+                        const credential = document.querySelector("#certificate-credential-add").value
+                        const link = document.querySelector("#certificate-link-add").value
+                        const date = document.querySelector("#certificate-date-add").value
+
+                        
+                        fetch(`/user/profile/addCertificate`, {
+                            method: 'POST',
+                            body: JSON.stringify({
+                                title: title,
+                                organisation: organisation,
+                                credential: credential,
+                                link: link,
+                                date: date,
+                            })
+                        })
+
+                        window.location.reload()
+                    })
+
+                    const certificate_elements = document.querySelectorAll(".edit-certificate")
+
+                    if(certificate_elements.length > 0){
+                        for(var i=0; i < projects_elements.length; i++){
+                            certificate_elements[i].onclick= function(){
+                                fillCertificateForm(this.dataset.id)
+                            }
+                        }
+                    }
+                    
+                    function fillCertificateForm(cert_id){
+                        document.querySelector("#certificate-title").value = document.querySelector(`#certificate-title-${cert_id}`).innerHTML
+                        document.querySelector("#certificate-organisation").value = document.querySelector(`#certificate-organisation-${cert_id}`).innerHTML
+                        document.querySelector("#certificate-credential").value = document.querySelector(`#certificate-credential-${cert_id}`).innerHTML
+                        document.querySelector("#certificate-link").value = document.querySelector(`#certificate-link-${cert_id}`).innerHTML
+
+                        const date = document.querySelector(`#certificate-date-${cert_id}`).innerHTML
+                        console.log(date)
+                        var sep = date.split('-')
+
+                        document.querySelector("#certificate-date").value = sep[2].toString() + "-" + sep[1].toString() + "-" + sep[0].toString()
+
+
+                        document.querySelector("#submit-certificate").addEventListener('submit',function(){
+                            
+                            const title = document.querySelector("#certificate-title").value
+                            const organisation = document.querySelector("#certificate-organisation").value
+                            const credential = document.querySelector("#certificate-credential").value
+                            const link = document.querySelector("#certificate-link").value
+                            const date = document.querySelector("#certificate-date").value
+
+                            fetch(`/user/profile/certificate/${cert_id}`, {
+                                method: 'PUT',
+                                body: JSON.stringify({
+                                    title: title,
+                                    organisation: organisation,
+                                    credential: credential,
+                                    link: link,
+                                    date: date,
+                                })
+                            })
+                            .then(() => {
+                                window.location.reload()
+                            })
+                        })
+
+                        document.querySelector('#delete-certificate').onclick=function(){
+
+                            var r = confirm("Are you sure you want to delete your certificate ?");
+
+                            if (r == true) {
+                                fetch(`/user/profile/certificate/${cert_id}`, {
+                                    method: 'POST',
+                                })
+                                .then(()=>{
+                                    $('#certificateModal').modal('hide');
+                                    document.querySelector(`#certificate-id-${cert_id}`).style.display="none"
+                                    window.location.reload()
+                                })
+                            }
+                            else{
+                                fillCertificateForm(cert_id)
+                            }
+                        }
+                    }
+
+                </script>
+            </div>
+        </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const pills = document.querySelectorAll('.nav-pill')
+    
+                for(var i=0; i < pills.length; i++){
+                    pills[i].classList.remove('active')
+                }
+    
+                document.querySelector('#profile-pill').classList.add('active')
+            })
+        </script>
+    </div>
+
+    
+{% endblock %}

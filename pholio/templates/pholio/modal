@@ -1,0 +1,32 @@
+<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true" style="background-color: rgba(0, 0, 0, 0.247); backdrop-filter: blur(5px);">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="border-radius: 1em; background-color: rgb(248, 248, 248);">
+        <div class="modal-header text-primary pt-3 pb-0" style="border: 0; border-top-left-radius: 1em; border-top-right-radius: 1em;">
+            <h5 class="modal-title" id="updateModalLabel">Edit Intro</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" class="text-primary">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body" style="border-bottom-left-radius: 1em; border-bottom-right-radius: 1em;">
+            <form action="" class="m-0">
+                <div class="row form-row">
+                    <div class="col-6 form-group mb-0">
+                        <label for="name-input">Full Name <small class="text-danger">*</small></label>
+                        <input autofocus value="{{data.name}}" id="name-input" type="text" class="form-control" name="name" placeholder="Harry Potter..." style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);" required>
+                    </div>
+                    <div class="col-6 form-group mb-0">
+                        <label for="title-input">Title / Tagline <small class="text-danger">*</small></label>
+                        <input autofocus value="{{data.title}}" id="title-input" type="text" class="form-control" name="title" placeholder="Web Developer..." style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);" required>
+                        <small class="text-muted">Words that describe you best.</small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="about-input">About <small class="text-danger">*</small></label>
+                    <textarea id="about-input" class="form-control" name="about" style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);" placeholder="Text" rows="8" required>{{data.about}}</textarea>
+                </div>
+                <button class="btn btn-primary font-weight-bold col-12" type="submit">Submit</button>
+            </form>
+        </div>
+        </div>
+    </div>
+</div>

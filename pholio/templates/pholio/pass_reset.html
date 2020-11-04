@@ -1,0 +1,26 @@
+{% extends "pholio/layout.html" %}
+
+{% block title %}Pholio{% endblock %}
+
+{% block body %}
+    <div class="col-12 p-0 m-0 animated_background d-flex flex-column align-items-center justify-content-center" style="min-height: 92vh;">
+        <div class="card p-3 shadow d-flex flex-column align-items-center justify-content-center text-primary">
+            <h3>Reset Password</h3>
+            <form method="post" class="pt-3 d-flex flex-row align-items-center">
+                {% csrf_token %}
+                {{form}}
+                <input type="Submit" name="Send email" class="btn btn-danger btn-sm m-0 ml-2">
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.querySelector("label").innerHTML = "Email"
+        document.querySelector("label").classList.add("font-weight-bold")
+        document.querySelector("label").classList.add("m-0")
+        document.querySelector("label").classList.add("mr-2")
+        document.querySelector("label").style.height="2em"
+        document.querySelector("#id_email").classList.add("form-control")
+        document.querySelector("#id_email").classList.add("form-control-sm")
+    </script>
+{% endblock %}

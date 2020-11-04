@@ -1,0 +1,15 @@
+{% extends "pholio/layout.html" %}
+
+{% block title %}Pholio{% endblock %}
+
+{% block body %}
+    <div class="col-12 p-0 m-0 animated_background d-flex flex-column align-items-center justify-content-center" style="min-height: 92vh;">
+        <div class="col-11 col-sm-8 card p-3 shadow d-flex flex-column align-items-center justify-content-center text-center">
+            <h3 class="text-primary text-center pt-2">Password reset complete</h3>
+            <div class="text-center mt-3 col-12 col-sm-11 ">
+                <p class="h6 text-muted text-center">Your password has been set. You may go ahead and log in now.</p>
+                <a href="{% url 'login' %}" class="h6 text-danger text-center">Log in</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

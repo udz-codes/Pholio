@@ -1,0 +1,96 @@
+{% extends "pholio/layout.html" %}
+
+{% block title %}Pholio{% endblock %}
+
+{% block body %}
+    <div class="col-12 d-flex flex-row justify-content-center align-items-center m-0 p-0 animated_background" style="min-height: 92vh; ">
+        <!-- <div class="col-0 col-sm-8" >
+        
+        </div> -->
+        <div class="col-12 col-sm-4 d-flex flex-column justify-content-center align-items-center m-0">
+            {% if message %}
+            <div class="alert alert-{{ type }}" role="alert">
+                {{ message }}
+            </div>
+            {% endif %}
+            <div class="col-11 shadow-lg card p-4" style="border-radius: 1em; background-color: rgb(227, 237, 255);">
+                <h3 class="text-dark">Register</h3>
+                <small class="form-text text-muted">Please register in to continue.</small>
+                <form action="{% url 'register' %}" method="post" class="mt-4">
+                {% csrf_token %}
+                    <div class="form-group">
+                        <label>Email address</label>
+                        <input autofocus type="email" class="form-control" id="email-input" aria-describedby="emailHelp" name="email" autocomplete="username" required>
+                    </div>
+                    <div class="col-12 row p-0 m-0">
+                        <div class="col-6 form-group p-0 m-0 pr-1">
+                            <label>Full Name</label>
+                            <input type="text" class="form-control" id="name-input" name="name">
+                        </div>
+                        <script>
+                            
+                            function usernameCheck(){
+                                const username = document.querySelector("#username-input").value
+                                const reg = /^[A-Za-z0-9-]{3,15}$/
+
+                                if (username.length === 0){
+                                    document.querySelector("#username_message").innerHTML=""
+                                    document.querySelector("#register-submit").setAttribute('disabled','true')
+                                }
+                                else if(username.length < 3 || username.length > 15){
+                                    document.querySelector("#username_message").innerHTML="Username must be 3-15 characters"
+                                    document.querySelector("#register-submit").setAttribute('disabled','true')
+                                }
+                                else{
+                                    document.querySelector("#username_message").innerHTML=''
+                                    if(!username.match(reg)){
+                                        document.querySelector("#username_message").innerHTML="No spaces or special characters allowed, except -"
+                                        document.querySelector("#register-submit").setAttribute('disabled','true')
+                                    }else{
+                                        document.querySelector("#username_message").innerHTML=''
+                                        document.querySelector("#register-submit").removeAttribute('disabled')
+                                    }
+                                }
+                            }
+                        </script>
+                        <div class="col-6 form-group p-0 m-0 pl-1">
+                            <label>Username</label>
+                            <input type="text" class="form-control" id="username-input" name="username" onkeyup="usernameCheck()" required>
+                            <small><span id="username_message" style="color: red;"></span></small>
+                            <!-- <small id="emailHelp" class="form-text text-muted">Use underscore for space</small> -->
+                        </div>
+                    </div>
+                    <div class="form-group mt-2">
+                        <label>Password</label>
+                        <input type="password" class="form-control" id="password-input" autocomplete="new-password" name="password" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Confirm Password</label>
+                        <input type="password" class="form-control" id="confirm-password" name="confirmation" required>
+                        <small id="emailHelp" class="form-text text-muted">Same as password above.</small>
+                    </div>
+                    <div class="form-group d-flex flex-row mt-4">
+                        <button type="submit" class="col-12 btn btn-primary form-control" id="register-submit" disabled="true">Submit</button>
+                        <!-- <button class="btn btn-danger float-right form-control ml-2">
+                            <i class="fa fa-google" aria-hidden="true"></i>
+                        </button> -->
+                    </div>
+                </form>
+                <p class="h6 text-muted text-center">Already have an account ? <a href="{% url 'login' %}">Login</a></p>
+            </div>
+        
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const pills = document.querySelectorAll('.nav-pill')
+
+            for(var i=0; i < pills.length; i++){
+                pills[i].classList.remove('active')
+            }
+
+            document.querySelector('#register-pill').classList.add('active')
+        })
+    </script>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "pholio/layout.html" %}
+
+{% block title %}Pholio{% endblock %}
+
+{% block body %}
+    <div class="col-12 p-0 m-0 animated_background d-flex flex-column align-items-center justify-content-center" style="min-height: 92vh;">
+        <div class="p-4 m-2 card shadow d-flex flex-column align-items-center justify-content-center text-primary">
+            <h3>Reset Password</h3>
+            <form method="post" class="pt-3 d-flex flex-column">
+                {% csrf_token %}
+                {{form}}
+                <input type="Submit" name="Update Password" class="btn btn-danger btn-sm m-0 mt-3">
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.querySelector("ul").style.display="none"
+    </script>
+{% endblock %}

@@ -1,0 +1,250 @@
+{% extends "pholio/layout.html" %}
+
+{% block title %}Pholio - {{data.name}}{% endblock %}
+
+{% block body %}
+    <div class="col-12 p-0 m-0 mb-5">
+        <div class="col-12 animated_background d-flex align-items-center justify-content-center" style="height: 40vh; border-bottom-right-radius: 2em; border-bottom-left-radius: 2em;">
+            <div class="col-12 p-0 m-0 d-flex flex-column align-items-center justify-content-center">
+                <div class="main-headings col-12 pl-0 pr-0 d-flex flex-fill flex-column align-items-center justify-content-center" style="height: 40vh;">
+                    <div class="text-center">
+                        <h1 class="text-light font-weight-bold  profile-name mb-3">{{data.name}}</h1>
+                        {% if data.title %}
+                            <h2 class="text-light title-text text-center p-sm-0 mt-4 mb-4">{{data.title}}</h2>
+                        {% elif not data.title and data.email == request.user.username %}
+                            <p class="text-light title-text text-center p-sm-0 mt-4 mb-4 h5">Click <a class="text-warning" href="user/profile" style="text-decoration: none; cursor: pointer;">here</a> to add title.</p>
+                        {% endif %}
+                    </div>
+                </div>
+                {% if socials.github or socials.linkedin or socials.twitter %}
+                <div class="social-buttons col-12 col-sm-4 d-flex flex-row justify-content-around align-items-center" style="z-index: 99; position: absolute; bottom: 0; height: 0vh;">
+                        {% if socials.github %}
+                        <a class="social icon-button btn-lg rounded-circle icon" target="_blank" href="{{socials.github}}">
+                            <i class="fa fa-github social-icon icon-circle" aria-hidden="true"></i><span></span>
+                        </a>
+                        {% endif %}
+                        {% if socials.linkedin %}
+                        <a class="social icon-button btn-lg rounded-circle icon" target="_blank" href="{{socials.linkedin}}">
+                            <i class="fa fa-linkedin social-icon icon-circle" aria-hidden="true"></i><span></span>
+                        </a>
+                        {% endif %}
+                        {% if socials.twitter %}
+                        <a class="social icon-button btn-lg rounded-circle icon" target="_blank" href="{{socials.twitter}}">
+                            <i class="fa fa-twitter social-icon icon-circle" aria-hidden="true"></i><span></span>
+                        </a>
+                        {% endif %}
+                </div>
+                {% elif not socials.github and not socials.linkedin and not socials.twitter and data.email == request.user.username %}
+                    <a href="user/profile" class="btn btn-warning btn-lg font-weight-bold title-text text-center rounded-pill ml-auto mr-auto"><i class="fas fa-plus-circle"></i>&nbsp&nbspSocials</a>
+                {% endif %}
+            </div>
+        </div>
+
+<!-- ABOUT -->
+        
+    {% if sections.about %}
+
+        <div class="col-12 row p-0 m-0 d-flex align-items-center justify-content-center mt-5" style="min-height: 40vh;">
+            <div class="col-12 d-flex flex-column align-items-center justify-content-center mt-3 mb-5">
+                <h1 class="text-dark font-weight-bold animated_text section-heading">About</h1>
+                {% if data.about %}
+                <h4 class="col-12 col-sm-8 mt-2 text-muted text-center text-wrap font-weight-normal">{{data.about}}</h4>
+                {% elif not data.about and data.email == request.user.username %}
+                <h5 class="col-12 col-sm-8 mt-2 text-muted text-center text-wrap font-weight-normal">Click <a href="user/profile" style="text-decoration: none; cursor: pointer;">here</a> to add information about yourself.</h5>
+                {% endif %}
+            </div>
+        </div>
+
+    {% endif %}
+
+<!-- EXPERIENCE -->
+
+    {% if sections.experience %}
+
+        <div class="col-12 p-0 m-0 d-flex align-items-center justify-content-center mt-3" style="min-height: 40vh;">
+            <div class="col-11 card shadow d-flex flex-column align-items-center justify-content-center pt-4 pb-5" style="border-radius: 1em;">
+                <h1 class="text-dark font-weight-bold animated_text section-heading">Experience</h1>
+                <hr class="col-12 mt-4 mb-5">
+                {% if experiences|length > 0 %}
+                    {% for experience in experiences %}
+                        <div class="col-12 col-sm-10 mt-4">
+                            <h4 class="text-dark font-weight-bold">{{experience.title}}</h4>
+                            <h5 class="text-danger font-weight-bold">{{experience.company}}</h5>
+                            {% if experience.enddate %}
+                            <h6 class="text-muted font-weight-bolder">{{experience.startdate }} - {{experience.enddate}}</h6>
+                            {% else %}
+                            <h6 class="text-muted font-weight-bolder">{{experience.startdate }} - Present</h6>
+                            {% endif %}
+                            <p class="text-secondary">{{experience.description}}</p>
+                        </div>
+                    {% endfor %}
+                {% elif experiences|length == 0 and data.email == request.user.username %}
+                        <h5 class="col-12 col-sm-8 mt-2 text-muted text-center text-wrap font-weight-normal">Click <a href="user/profile#experience-view" style="text-decoration: none; cursor: pointer;">here</a> to add information about your professional experience.</h5>
+                {% endif %}
+            </div>
+        </div>
+    
+    {% endif %}
+
+<!-- PROJECTS -->
+
+    {% if sections.projects %}
+
+        <div class="col-12 row p-0 m-0 d-flex align-items-center justify-content-center mt-5" style="min-height: 30vh;">
+            <h1 class="text-dark font-weight-bold p-3 mb-3 mt-3 animated_text section-heading">Projects</h1>
+            <div class="col-11 d-flex flex-wrap align-items-center justify-content-around p-0 m-0">
+                {% if projects|length > 0 %}
+                    {% for project in projects %}
+                        <div class="card shadow col-12 p-4 d-flex flex-column flex-sm-row align-items-center justify-content-between p-3 m-0 mr-sm-2 mt-4 project-heading" style="border-radius: 1em;">
+                            <div class="col-12 col-sm-6 align-items-center">
+                                <h4 class="text-center text-sm-left">{{project.title}}</h4>
+                                {% if project.enddate %}
+                                <h6 class="text-muted text-center text-sm-left font-weight-normal">{{project.startdate}} - {{project.enddate}}</h6>
+                                {% else %}
+                                <h6 class="text-muted text-center text-sm-left font-weight-normal">{{project.startdate}} - Ongoing</h6>
+                                {% endif %}
+                                <p class="mt-3 mb-0 project-disc text-center text-sm-left">{{project.description}}</p>
+                            </div>
+                            <div class="col-12 col-sm-3 float-sm-right mt-3 mt-sm-0 row justify-content-around">
+                                {% if project.github %}
+                                <a class="btn btn-sm btn-outline-dark rounded-circle icon-2" target="_blank" href="{{project.github}}">
+                                    <i class="fa fa-github" aria-hidden="true"></i><span></span>
+                                </a>
+                                {% endif %}
+
+                                {% if project.website %}
+                                <a class="btn btn-sm btn-outline-dark rounded-circle icon-2" target="_blank" href="{{project.website}}">
+                                    <i class="fa fa-globe" aria-hidden="true"></i><span></span>
+                                </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% elif projects|length == 0 and data.email == request.user.username %}
+                    <h5 class="col-12 col-sm-8 text-muted text-center text-wrap font-weight-normal">Click <a href="user/profile#project-view" style="text-decoration: none; cursor: pointer;">here</a> to add information about your projects.</h5>
+                {% endif %}
+            </div>
+        </div>
+
+    {% endif %}
+
+<!-- EDUCATION -->
+
+    {% if sections.education %}
+
+        <div class="col-12 row p-0 m-0 d-flex align-items-center justify-content-center mt-5" style="min-height: 40vh;">
+            <div class="col-11 card shadow d-flex flex-column align-items-center justify-content-center mt-5 pb-5" style="border-radius: 1em;">
+                <h1 class="text-dark p-3 font-weight-bold mb-0 mt-2 animated_text section-heading">Education</h1>
+                <hr class="col-12 pb-5">
+                {% if educations|length > 0 %}
+                    {% for education in educations %}
+                        <div class="col-12 col-sm-10 mb-4">
+                            <h4 class="text-dark font-weight-bold">{{education.title}}</h4>
+                            <h5 class="text-muted font-weight-bold">{{education.field}}</h5>
+                            {% if education.endyear %}
+                            <h5 class="text-muted font-weight-normal">{{education.school}} ({{education.startyear}}-{{education.endyear}})</h5> 
+                            {% else %}
+                            <h5 class="text-muted font-weight-normal">{{education.school}} ({{education.startyear}}-Ongoing)</h5>
+                            {% endif %}
+                            <p class="text-secondary">{{education.description}}</p>
+                        </div>
+                    {% endfor %}
+                {% elif educations|length == 0 and data.email == request.user.username %}
+                    <h5 class="col-12 col-sm-8 text-muted text-center text-wrap font-weight-normal">Click <a href="user/profile#education-view" style="text-decoration: none; cursor: pointer;">here</a> to add information about your education.</h5>
+                {% endif %}
+            </div>
+        </div>
+    
+    {% endif %}
+
+<!-- SKILLS -->
+    
+    {% if sections.skills %}
+
+        <div class="col-12 row p-0 m-0 d-flex align-items-center justify-content-center mt-5 mb-5" style="min-height: 10vh;">
+            <div class="col-11 p-3 pt-4 pb-4 p-sm-5 m-0 d-flex flex-column align-items-center justify-content-center mt-5 mb-5">
+                <h1 class="text-dark font-weight-bold mb-3 animated_text section-heading">Skills</h1>
+                
+                {% if skills|length > 0 %}
+                <div class="col-12 col-sm-6 d-flex flex-column align-items-center justify-content-center">
+                    
+                    {% for category in skillCategories %}
+                    <div class="col-12 p-0 m-0 mt-4">
+                        <div class="card shadow border-0" style="border-radius: 1em;">
+                            <h5 class="card-header collapsed border-0" data-toggle="collapse" href="#collapse-{{category.id}}" aria-expanded="true" style="cursor: pointer; background-color: rgba(0, 0, 0, 0);">
+                                <p aria-controls="collapse-{{category.id}}" id="heading-{{category.title}}" class="d-flex align-items-center justify-content-between skills-head text-dark p-0 m-0" style="text-decoration: none ;">
+                                    {{category.title}}
+                                    <i class="fa fa-chevron-down pull-right"></i>
+                                </p>
+                            </h5>
+                            <div id="collapse-{{category.id}}" class="collapse" aria-labelledby="heading-{{category.id}}">
+                                <div class="card-body p-2 pb-3">
+                                    <ul class="row m-0 p-0 justify-content-center skillsCategories" style="list-style-type: none;">
+                                        {% for skill in skills %}
+                                            {% if skill.category == category %}
+                                            <li class="p-1 pl-4 font-weight-bold pr-4 rounded-pill bg-dark text-white m-1" style="font-size: medium;">{{skill.name}}</li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                    <script>
+
+                        const categories = document.querySelectorAll(".skillsCategories")
+
+                        for(var i = 0; i < categories.length; i++)
+                        {   
+                            if(!categories[i].firstElementChild)
+                            {
+                                categories[i].parentElement.parentElement.parentElement.parentElement.style.display = "none"
+                            }
+                        }
+
+                    </script>
+
+                </div>
+
+                {% elif skills|length == 0 and data.email == request.user.username %}
+                    <h5 class="col-12 col-sm-8 text-muted text-center text-wrap font-weight-normal">Click <a href="user/profile#skills-view" style="text-decoration: none; cursor: pointer;">here</a> to add your skills.</h5>
+                {% endif %}
+            </div>
+        </div>
+    
+    {% endif %}
+
+<!-- CERTIFICATIONS -->
+    
+    {% if sections.certifications %}
+
+        <div class="col-12 p-0 m-0 d-flex align-items-center justify-content-center mt-5" style="min-height: 40vh;">
+            <div class="col-11 card shadow d-flex flex-column align-items-center justify-content-center pt-4 pb-5" style="border-radius: 1em;">
+                <h1 class="text-dark font-weight-bold mt-2 animated_text section-heading">Certifications</h1>
+                <hr class="col-12 mt-4">
+                {% if certifications|length > 0 %}
+                    {% for cert in certifications %}
+                    <div class="col-12 col-sm-10 mt-5">
+                        <h4 class="text-dark font-weight-bold">{{cert.title}}</h4>
+                        <h5 class="text-muted font-weight-bold">{{cert.organisation}}</h5>
+                        <h6 class="text-muted font-weight-normal">{{cert.date}}</h6>
+                        {% if cert.credential %}
+                        <p class="text-dark mb-1">Credential ID&nbsp&nbsp<span class="text-secondary">{{cert.credential}}</span></p>
+                        {% endif %}
+                        {% if cert.certificate %}
+                        <a class="text-danger" href="{{cert.certificate}}" target="_blank" style="text-decoration: none;">Certificate</a>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                {% elif certifications|length == 0 and data.email == request.user.username %}
+                    <h5 class="col-12 col-sm-8 text-muted text-center text-wrap font-weight-normal mt-4 pt-2">Click <a href="user/profile#certifications-view" style="text-decoration: none; cursor: pointer;">here</a> to add information about your certifications earned by you.</h5>
+                {% endif %}
+            </div>
+        </div>
+    
+    {% endif %}
+
+    </div> <!-- End of all views -->
+{% endblock %}

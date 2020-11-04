@@ -1,0 +1,50 @@
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+
+            const pills = document.querySelectorAll('.nav-pill')
+
+            for(var i=0; i < pills.length; i++){
+                pills[i].classList.remove('active')
+            }
+
+            document.querySelector('#profile-pill').classList.add('active')
+
+            const a = document.querySelectorAll(".profile-view")
+
+            for(var i = 0; i < a.length; i++){
+                a[i].classList.add("d-none")
+            }
+
+            const elements = document.querySelectorAll(".nav-button")
+
+            for(var i = 0; i < a.length; i++){
+                elements[i].onclick = function(){
+                    load_view(this.dataset.view)
+                    elements[i].classList.add("active")
+                }
+            }
+
+            load_view("introduction")
+        })
+
+        function load_view(view_name){
+
+            const a = document.querySelectorAll(".profile-view")
+            const navs = document.querySelectorAll(".nav-button")
+
+            for(var i = 0; i < a.length; i++){
+                a[i].classList.add("d-none")
+            }
+
+            for(var i = 0; i < a.length; i++){
+                navs[i].classList.remove("active")
+            }
+
+
+            document.querySelector(`#${view_name}`).classList.add("active")
+            document.querySelector(`#${view_name}-view`).classList.remove("d-none")
+
+        }
+
+    </script>

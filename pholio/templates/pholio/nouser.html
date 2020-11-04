@@ -1,0 +1,16 @@
+{% extends "pholio/layout.html" %}
+
+{% block title %}Pholio{% endblock %}
+
+{% block body %}
+    <div class="col-12 p-0 m-0 animated_background d-flex align-items-center" style="min-height: 92vh;">
+        <div class="col-12 p-0 m-0 d-flex flex-column align-items-center justify-content-around">
+            <h1 class="text-light text-center">User "<b>{{username}}"</b> does not exit</h1>
+            
+            <img src="../../static/pholio/src/nouser.svg" class="col-9 col-md-2 mt-5 mb-5" >
+
+            <h5 class="text-light text-center">Please enter the username of an existing user.</h5>
+            <h6 class="text-light text-center mt-2">To register for a new account, visit <a href="{% url 'register' %}" class="text-warning font-weight-bold">/register</a></h6>
+        </div>
+    </div>
+{% endblock %}

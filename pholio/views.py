@@ -34,17 +34,32 @@ def socials(request):
         if request.POST["linkedin"] == '':
             socials.linkedin = None
         else:
-            socials.linkedin = request.POST["linkedin"]
+            if "https://" in request.POST["linkedin"]:
+                linkdn = request.POST["linkedin"]
+            else:
+                linkdn = "https://" + request.POST["linkedin"]
+            
+            socials.linkedin = linkdn
         
         if request.POST["github"] == '':
             socials.github = None
         else:
-            socials.github = request.POST["github"]
+            if "https://" in request.POST["github"]:
+                githb = request.POST["github"]
+            else:
+                githb = "https://" + request.POST["github"]
+
+            socials.github = githb
         
         if request.POST["twitter"] == '':
             socials.twitter = None
         else:
-            socials.twitter = request.POST["twitter"]
+            if "https://" in request.POST["twitter"]:
+                twtr = request.POST["twitter"]
+            else:
+                twtr = "https://" + request.POST["twitter"]
+
+            socials.twitter = twtr
 
         socials.save()
 
@@ -170,8 +185,24 @@ def project_view(request, proj_id):
         project.enddate = data["enddate"]
         project.description = data["description"]
 
-        project.github = data["github"]
-        project.website = data["website"] 
+        git = ""
+        if data["github"] != "":
+            if "https://" in data["github"]:
+                git = data["github"]
+            else:
+                git = "https://" + data["github"]
+
+        print(data["website"])
+
+        web = ""
+        if data["website"] != "":
+            if "https://" in data["website"]:
+                web = data["website"]
+            else:
+                web = "https://" + data["website"]
+
+        project.github = git
+        project.website = web
 
         project.save()
 
@@ -243,7 +274,15 @@ def certificate_view(request, cert_id):
         certification.organisation = data["organisation"]
         certification.date = data["date"]
         certification.credential = data["credential"]
-        certification.certificate = data["link"]
+
+        link=""
+        if data["link"] != "":
+            if "https://" in data["link"]:
+                link = data["link"]
+            else:
+                link = "https://" + data["link"]
+        
+        certification.certificate = link
 
         certification.save()
 
@@ -287,7 +326,21 @@ def add_project(request):
 
         data = json.loads(request.body)
 
-        project = Project(user=request.user, title=data["title"], startdate=data["startdate"], enddate=data["enddate"], description=data["description"], github=data["github"], website=data["website"])
+        git = ""
+        if data["github"] != "":
+            if "https://" in data["github"]:
+                git = data["github"]
+            else:
+                git = "https://" + data["github"]
+
+        web = ""
+        if data["website"] != "":
+            if "https://" in data["website"]:
+                web = data["website"]
+            else:
+                web = "https://" + data["website"]
+
+        project = Project(user=request.user, title=data["title"], startdate=data["startdate"], enddate=data["enddate"], description=data["description"], github=git, website=web)
         project.save()
 
         return HttpResponse(status=204)
@@ -323,7 +376,14 @@ def add_certificate(request):
 
         data = json.loads(request.body)
 
-        certificate = Certification(user=request.user, title=data["title"], organisation=data["organisation"], credential=data["credential"], date=data["date"], certificate=data["link"])
+        link = ""
+        if data["link"] != "":
+            if "https://" in data["link"]:
+                link = data["link"]
+            else:
+                link = "https://" + data["link"]
+
+        certificate = Certification(user=request.user, title=data["title"], organisation=data["organisation"], credential=data["credential"], date=data["date"], certificate=link)
         certificate.save()
 
         return HttpResponse(status=204)

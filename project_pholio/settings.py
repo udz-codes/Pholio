@@ -52,11 +52,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-
 SECURE_PROXY_SSL_HEADER=('HTTP_X_FORWARDED_PROTO', 'https')
-SECURE_SSL_REDIRECT=os.environ.get('SESSION_COOKIE_SECURE')     # Set to false in development server and reset browser cache
-SESSION_COOKIE_SECURE=os.environ.get('SESSION_COOKIE_SECURE')
-CSRF_COOKIE_SECURE=os.environ.get('CSRF_COOKIE_SECURE')
+SECURE_SSL_REDIRECT=bool(int(os.environ.get('SECURE_SSL_REDIRECT')))
+SESSION_COOKIE_SECURE=bool(int(os.environ.get('SESSION_COOKIE_SECURE')))
+CSRF_COOKIE_SECURE=bool(int(os.environ.get('CSRF_COOKIE_SECURE')))
 SECURE_HSTS_SECONDS=3999999
 SECURE_HSTS_INCLUDE_SUBDOMAINS=True
 SECURE_HSTS_PRELOAD=True

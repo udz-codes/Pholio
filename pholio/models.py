@@ -24,6 +24,9 @@ class Profile(models.Model):
     about = models.TextField(blank=True)
     email = models.CharField(max_length=100)
 
+    def __str__(self):
+        return f"{self.email} : {self.username}"
+
 class Social(models.Model):
     user = models.ForeignKey("User", on_delete=models.CASCADE, related_name='social')
     github = models.URLField(max_length=200, null=True, blank=True, default="")

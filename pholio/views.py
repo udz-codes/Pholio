@@ -79,15 +79,16 @@ def skills_view(request, cat_id):
 
         data = json.loads(request.body)
 
-        skill = Skill(user=request.user, category=category, name=data["name"])
+        if str.strip(data["name"]) != "":
+            skill = Skill(user=request.user, category=category, name=str.strip(data["name"]))
 
-        skill.save()
+            skill.save()
 
-        newskill = Skill.objects.get(user=request.user, category=category, name=data["name"])
+            newskill = Skill.objects.get(user=request.user, category=category, name=str.strip(data["name"]))
 
-        return JsonResponse({
-            "message": f"{newskill.pk}"
-        })
+            return JsonResponse({
+                "message": f"{newskill.pk}"
+            })
 
 
 @csrf_exempt

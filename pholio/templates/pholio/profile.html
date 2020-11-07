@@ -1171,7 +1171,6 @@
                             document.querySelector("#education-endyear").setAttribute('disabled','true')
                             document.querySelector("#check-edit-edu").checked=true
                         }else{
-                            console.log(document.querySelector(`#education-end-${edu_id}`).innerHTML)
                             document.querySelector("#education-endyear").value = document.querySelector(`#education-end-${edu_id}`).innerHTML
                             document.querySelector("#education-endyear").removeAttribute('disabled')
                             document.querySelector("#check-edit-edu").checked=false
@@ -1260,7 +1259,7 @@
                                         {% endfor %}
                                     </ul>
                                     <form id="submit-skills-{{category.id}}" onsubmit="return false" class="row col-12 p-0 m-0 mt-3 pl-3 pr-3 skills-forms" data-skill="{{category.id}}">
-                                        <input autocomplete="off" type="text" class="col-8 form-control rounded-pill shadow-sm" placeholder="Add skills..." id="skill-input-{{category.id}}">
+                                        <input autocomplete="off" type="text" class="col-8 form-control rounded-pill shadow-sm" placeholder="Add skills..." id="skill-input-{{category.id}}" required>
                                         <button type="submit" class="btn btn-danger font-weight-bold rounded-pill flex-fill ml-3">Add</button>
                                     </form>
                                 </div>
@@ -1319,7 +1318,7 @@
                         function addSkill(cat_id){
 
                             const name = document.querySelector(`#skill-input-${cat_id}`).value
-
+                            
                             fetch(`/user/profile/addSkill/${cat_id}`, {
                             method: 'POST',
                             body: JSON.stringify({
@@ -1329,15 +1328,16 @@
                             .then(response => response.json())
                             .then((result)=>{
 
+                                document.querySelector(`#skill-input-${cat_id}`).value = ''
+
+
                                 const value = document.querySelector(`#category-${cat_id}`).innerHTML + `
                                 <li class="row p-0 font-weight-bold rounded-pill bg-danger text-white m-2" style="font-size: smaller;">
                                     <p class="p-1 m-0 pl-3 pr-3 pr-0">${name}</p>
                                 </li>
                                 `
-
                                 document.querySelector(`#category-${cat_id}`).innerHTML = value
                                 document.querySelector(`#collapse-${cat_id}`).classList.add('show')
-                                document.querySelector(`#skill-input-${cat_id}`).value = ''
                             })
                         }
 
@@ -1513,7 +1513,7 @@
                         document.querySelector("#certificate-link").value = document.querySelector(`#certificate-link-${cert_id}`).innerHTML
 
                         const date = document.querySelector(`#certificate-date-${cert_id}`).innerHTML
-                        console.log(date)
+                        
                         var sep = date.split('-')
 
                         document.querySelector("#certificate-date").value = sep[2].toString() + "-" + sep[1].toString() + "-" + sep[0].toString()

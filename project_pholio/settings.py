@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = (os.environ.get('DEGUB_TOGGLE') == 'True')
 
 
-ALLOWED_HOSTS = ['project-pholio.herokuapp.com']
+ALLOWED_HOSTS = ['project-pholio.herokuapp.com','pholio.tech']
 
 
 # Application definition

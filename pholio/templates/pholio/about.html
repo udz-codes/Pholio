@@ -1,0 +1,162 @@
+{% extends "pholio/layout.html" %}
+{% load static %}
+{% block title %}About Pholio{% endblock %}
+
+{% block body %}
+<div class="col-12 p-0 m-0 animated_background d-flex flex-column align-items-center"
+    style="min-height: 100vh; max-height: 1000vh;">
+    <div class="col-12 col-sm-10 d-flex flex-column align-items-center mt-4 mt-sm-5 mb-4 mb-sm-5 p-0 m-0">
+
+        <div class="col-12 d-flex flex-column">
+            <h1 class="text-light text-center mt-0 mt-sm-4 mb-4 font-weight-bold animated_text2">What is Pholio
+                ?</h1>
+            <div class="card col-12 align-items-center p-0 m-0 shadow-lg" style="border-radius: 1em;">
+                <div class="col-12 col-sm-9 p-4 pt-sm-5 pb-sm-5 p-sm-0 card-body text-center text-primary">
+                    <p class="h5 m-0">Pholio is a portfolio website but not a traditional one. At pholio, users can
+                        register for an account and set up a personal portfolio webpage by just entering their
+                        information, without writing any code.</p>
+                    <p class="h5 m-0 mt-4">Users have complete control over what sections they want the world to see,
+                        what information they want to add in those sections, and all of the information is presented in
+                        a beautiful design.</p>
+                    <p class="h6 m-0 mt-4 col-12 text-center">
+                        <a class="text-danger" href="/john-doe" target="_blank">Demo pholio webpage&nbsp<i
+                                class="fas fa-external-link-square-alt"></i></a>
+                        <br/><br/>
+                        <a class="text-danger" href="https://youtu.be/Vz7sHj9eIv0" target="_blank" style="color:red; font-size: 3em; line-height: 0px;">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 d-flex flex-column mt-5 align-items-center">
+            <h1 class="text-light text-center mt-4 m-0 font-weight-bold animated_text2">What is this made of ?
+            </h1>
+            <hr class="col-10 col-sm-7 border-white rounded-pill" style="border-width: 0.2em;"/>
+            <small class="mb-3 text-white">L ♡ V E . . . and</small>
+            <div class="col-12 align-items-center p-0 m-0">
+                <div
+                    class="col-12 p-2 pt-sm-4 card-body text-center d-flex flex-row align-items-center justify-content-between">
+                    <a style="font-size: 5em; cursor: pointer; text-decoration: none;" class="text-light text-center" href="https://getbootstrap.com" target="_blank">
+                        <i class="fab fa-bootstrap bootstrap p-3"></i>
+                        <p class="bootstrap-hidden h5">Bootstrap</p>
+                    </a>
+                    <a style="font-size: 5em; cursor: pointer; text-decoration: none;" class="text-light text-center" href="https://www.python.org" target="_blank">
+                        <i class="fab fa-python python p-3"></i>
+                        <p class="python-hidden h5">Python</p>
+                    </a>
+                    <a style="cursor: pointer; text-decoration: none;" class="text-light text-center" href="https://www.djangoproject.com" target="_blank">
+                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 172 172" class="django m-3"
+                            width="5em" style=" fill:#000000;">
+                            <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
+                                stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
+                                font-family="none" font-weight="none" font-size="none" text-anchor="none"
+                                style="mix-blend-mode: normal">
+                                <path d="M0,172v-172h172v172z" fill="none"></path>
+                                <g fill="#ffffff">
+                                    <path
+                                        d="M78.83333,21.5v36.96712c-2.48683,-1.0105 -7.85355,-1.13379 -10.49805,-1.13379c-19.89467,0 -38.31087,9.35967 -38.31087,35.83333c0,31.67667 24.94392,35.83333 41.64225,35.83333c6.59333,0 21.5,-0.65116 28.66667,-2.72949v-104.77051zM114.66667,21.5v21.5h21.5v-21.5zM114.66667,57.33333v62.3584c0,10.86467 -6.60767,22.17367 -21.5,28.66667l20.49219,9.28027c20.82633,-7.16667 22.50781,-30.78027 22.50781,-37.94694v-62.3584zM71.45671,75.61393c2.29333,0 4.86829,0.42048 7.37663,0.99382v33.70573c-2.50833,0.57333 -5.0833,1.00781 -7.37663,1.00781c-9.38833,0 -18.49056,-2.96129 -18.49056,-18.15462c0,-15.19333 9.10223,-17.55274 18.49056,-17.55274z">
+                                    </path>
+                                </g>
+                            </g>
+                        </svg>
+                        <p class="django-hidden h5">Django</p>
+                    </a>
+                </div>
+            </div>
+            <h1 class="text-light text-center mt-4 mt-sm-3 mb-4" style="font-size: 1.3em;">Want to see the code?</h1>
+            <div class="col-12 align-items-center p-0 m-0">
+                <div class="col-12 p-2 card-body text-center d-flex flex-row align-items-center justify-content-center">
+                    <div class="d-flex align-items-center justify-content-center" style="width: 30vh; height: 30vh;">
+                        <a style="font-size: 5em; cursor: pointer; text-decoration: none; color: #2C974B;"
+                            class="d-flex flex-column align-items-center justify-content-center text-center rounded-circle github-project"
+                            alt="Github" href="https://github.com/udz-codes/Pholio" target="_blank">
+                            <i class="fab fa-github-alt p-0 m-0"></i>
+                            <p class="h4 font-weight-bold" style="color: #24292E">Github</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 d-flex flex-column align-items-center">
+            <div class="col-12 col-sm-8 card mt-4 mb-2 rounded-pill p-2" style="background-color: #00000079;">
+                <h1 class="text-white text-center font-weight-bold p-0 m-0 animated_text2">Who made this
+                ?</h1>
+            </div>
+            <small class="mb-4 text-white">This guy!</small>
+            <div class="col-12 col-sm-8 d-flex flex-column flex-sm-row align-items-center justify-content-between m-0 p-0">
+                <div class="col-12 col-sm-6 p-0 m-0 d-flex align-items-center justify-content-center justify-content-sm-start">
+                    <img src="https://avatars3.githubusercontent.com/u/21984964?s=460&u=f009fffcfa48171167ad289bb8c45b8421a08cd5&v=4"
+                        width="60%" class="rounded-circle ml-sm-5">
+                </div>
+                <div class="col-12 col-sm-6 p-0 m-0 d-flex flex-column align-items-center text-light" style="height: 100%;">
+                    <div class="col-12 p-0 mb-3 mt-3 mt-sm-0 mb-sm-5 m-0">
+                        <div class="col-12 p-0 m-0 text-center">
+                            <h1 class="font-weight-bold">Ujjwaldeep Singh</h1>
+                            <h4>Web Developer</h4>
+                        </div>
+                    </div>
+                    <div class="card shadow col-10 col-sm-9 p-2 m-0 text-center rounded-pill d-flex flex-row justify-content-between">
+                        <a style="width:3em" href="https://pholio.tech/udz-codes" target="_blank">
+                            <svg width="3em" height="3em" clip-rule="evenodd" fill-rule="evenodd"
+                                image-rendering="optimizeQuality" shape-rendering="geometricPrecision"
+                                text-rendering="geometricPrecision" version="1.1" viewBox="0 0 1436 1436"
+                                xml:space="preserve" class="myicon" xmlns="http://www.w3.org/2000/svg">
+                                <path class="fil0"
+                                    d="m718 0c397 0 718 322 718 718 0 397-322 718-718 718-29 0-57-2-85-5v-38-340c122 0 206-7 253-20 79-23 141-63 187-122 46-58 69-131 69-219 0-79-18-147-53-204s-83-98-144-123-160-38-298-38h-254v1032c-234-119-394-361-394-641 0-397 322-718 718-718zm-85 819h76c60 0 102-4 125-13 23-8 42-23 55-42 13-20 20-44 20-72 0-49-19-84-56-106-27-17-78-25-153-25h-68v258z" />
+                            </svg>
+                        </a>
+                        <a style="font-size: 3em; line-height: 0ch;" class="myicon" href="https://github.com/udz-codes" target="_blank">
+                            <i class="fab fa-github" ></i>
+                        </a>
+                        <a style="width: 3em; height: 3em;" class="rounded-circle d-flex align-items-center justify-content-center myiconalt" href="https://www.linkedin.com/in/udz" target="_blank">
+                            <p style="font-size: 2em; line-height: 0ch;" class="text-white p-0 m-0">
+                                <i class="fab fa-linkedin-in" ></i>
+                            </p>
+                        </a>
+                        <a style="width: 3em; height: 3em;" class="rounded-circle d-flex align-items-center justify-content-center myiconalt" href="mailto:ujjwal2699singh@gmail.com" target="_blank">
+                            <p style="font-size: 2em; line-height: 0ch;" class="text-white p-0 m-0">
+                                <i class="fas fa-envelope"></i>
+                            </p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-11 shadow-lg card mt-3 align-items-center p-3" style="border-radius: 0; border-top-right-radius: 2em; border-top-left-radius: 2em;">
+        <div class="text-center pb-4 pt-0 ">
+            <h1 class="font-weight-bold text-danger">Contact</h1>
+            <small class="text-danger" style="font-weight: 500;">Contact the developer at following links for queries, suggestions or requests related to pholio</small>
+            <hr class="col-11 col-sm-8 border-danger mb-4 rounded-pill" style="border-width: 0.1em;"/>
+        </div>
+        <div class="col-12 col-sm-6 row">
+            <div class="col-12 col-sm-6 mb-3 mb-sm-0 d-flex flex-column text-primary text-center" target="_blank">
+                <a href="https://www.linkedin.com/in/udz" target="_blank" class="text-decoration-none text-primary"><i class="fab fa-linkedin" style="font-size: 3em;"></i></a>
+                <p style="font-size: 1.5em;">www.linkedin.com/in/udz</p>
+            </div>
+            <div class="col-12 col-sm-6 d-flex flex-column text-primary text-center">
+                <a href="mailto:info.pholio@gmail.com" target="_blank" class="text-decoration-none text-primary"><i class="fas fa-envelope" style="font-size: 3em;"></i></a>
+                <p style="font-size: 1.5em;">info.pholio@gmail.com</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const pills = document.querySelectorAll('.nav-pill')
+
+        for (var i = 0; i < pills.length; i++) {
+            pills[i].classList.remove('active')
+        }
+
+        document.querySelector('#about-pill').classList.add('active')
+    })
+</script>
+{% endblock %}

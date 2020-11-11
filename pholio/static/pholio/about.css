@@ -1,0 +1,158 @@
+.bootstrap-hidden{
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.bootstrap:hover + .bootstrap-hidden {
+    opacity: 1;
+    color: white;
+}
+
+.bootstrap:hover {
+    color: white;
+}
+
+/* -------- PYTHON -------- */
+
+.python-hidden{
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.python:hover + .python-hidden {
+    opacity: 1;
+    color: white;
+}
+
+.python:hover {
+    color: white;
+}
+
+/* -------- DJANGO -------- */
+
+.django-hidden{
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.django:hover + .django-hidden {
+    opacity: 1;
+    color: white;
+}
+
+.django:hover {
+    color: white;
+}
+
+
+@keyframes shadow-breath {
+    0% {
+        box-shadow: 0px 0px  rgba(0,0,0,0.374);
+        -moz-box-shadow: 0px 0px  rgba(0,0,0,0.374);
+        -webkit-box-shadow: 0px 0px  rgba(0,0,0,0.374);
+        -o-box-shadow: 0px 0px  #00000099;
+        /* width: 2.15em; 
+        height: 2.15em; */
+    }
+    50% {
+        box-shadow: 0px 0px 20px 10px  #0bee4b50;
+        -moz-box-shadow: 0px 0px 20px 10px  #0bee4b50;
+        -webkit-box-shadow: 0px 0px 20px 10px  #0bee4b50;
+        -o-box-shadow: 0px 0px 20px 10px  #0bee4b50;
+        /* width: 2.2em; 
+        height: 2.2em; */
+    }
+    100% {
+        box-shadow: 0px 0px  rgba(0,0,0,0.374);
+        -moz-box-shadow: 0px 0px  rgba(0,0,0,0.374);
+        -webkit-box-shadow: 0px 0px  rgba(0,0,0,0.374);
+        -o-box-shadow: 0px 0px  rgba(0, 0, 0, 0.374);
+        /* width: 2.15em; 
+        height: 2.15em; */
+    }
+}
+
+.github-project{
+    width: 2.2em; 
+    height: 2.2em;
+    background-color: white;
+    transition: 0.3s;
+}
+
+.github-project:hover{
+    background-color: white;
+    box-shadow: 0px 0px 20px 10px  #0bee4b50;
+    -moz-box-shadow: 0px 0px 20px 10px  #0bee4b50;
+    -webkit-box-shadow: 0px 0px 20px 10px  #0bee4b50;
+    -o-box-shadow: 0px 0px 20px 10px  #0bee4b50;
+}
+
+.myicon{
+    fill: #0000FF;
+    color: #0000FF;
+}
+
+.myicon:hover{
+    fill: #FF0044;
+    color: #FF0044;
+    cursor: pointer;
+}
+
+.myicon2{
+    fill: #ffffff;
+}
+/* 
+#about-pill:hover .myicon2{
+    fill: #FFFFFF;
+}
+
+#about-pill:active .myicon2{
+    fill: #FFFFFF;
+} */
+
+.myiconalt{
+    background-color: #0000FF;
+}
+
+.myiconalt:hover{
+    background-color: #FF0044;
+    cursor: pointer;
+}
+
+@keyframes glow {
+    0% {
+        color: #FF0044;
+    }
+    50% {
+        color: #0000FF;
+    }
+    100% {
+        color: #FF0044;
+    }
+}
+
+.animated_text2 {
+    /* animation: glow 4s ease-in-out infinite; */
+    font-size: 3em;
+}
+
+@media only screen and (max-width:600px) {
+    .bootstrap-hidden{
+        opacity: 1;
+    }
+    .python-hidden{
+        opacity: 1;
+    }
+    .django-hidden{
+        opacity: 1;
+    }
+    .github-project{
+        animation: shadow-breath 1s ease-in-out infinite;
+    }
+    .animated_text2 {
+        font-size: 2em;
+    }
+    .dev-heading {
+        font-size: 1.5em;
+    }
+}

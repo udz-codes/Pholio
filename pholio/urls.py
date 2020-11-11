@@ -8,6 +8,7 @@ urlpatterns = [
     path("login", views.login_view, name="login"),
     path("register", views.register_view, name="register"),
     path("logout", views.logout_view, name="logout"),
+    path("about", views.about_view, name="about"),
 
     # Main Page and User Portfolio
     path("<str:username>", views.portfolio, name="portfolio"),

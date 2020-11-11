@@ -21,6 +21,8 @@ def index(request):
     else:
         return render(request, "pholio/index.html")
 
+def about_view(request):
+    return render(request, "pholio/about.html")
 
 def socials(request):
 

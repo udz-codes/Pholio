@@ -6,6 +6,7 @@ html {
 
 html::-webkit-scrollbar {
     display: none;
+    scroll-behavior: smooth
 }
 
 .text-pink {

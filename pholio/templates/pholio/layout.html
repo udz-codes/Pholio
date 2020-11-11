@@ -12,7 +12,6 @@
         <link rel="stylesheet" href="{% static 'pholio/styles.css' %}">
         <link rel="stylesheet" href="{% static 'pholio/about.css' %}">
         <link rel = "icon" href="{% static 'pholio/src/icon.svg' %}"> 
-        <link rel="stylesheet" href="https://i.icomoon.io/public/temp/a741ab5a70/UntitledProject/style.css">
         {% block script %}
         {% endblock %}
     </head>
@@ -39,7 +38,7 @@
                         <a id="login-pill" class="btn btn-outline-primary btn-sm rounded-pill ml-2 mt-sm-0 nav-pill" href="{% url 'login' %}">Login</a>
                     {% endif %}
                         <a id="about-pill" class="btn btn-outline-danger border-0 btn-sm rounded-circle ml-2 mt-sm-0 nav-pill p-1 d-flex align-items-center justify-content-center" href="{% url 'about' %}" style="font-size: 1.5em;">
-                            <span class="icon-pholio"></span>
+                            <i class="fas fa-question-circle"></i>
                         </a>
                 </div>
             </div>

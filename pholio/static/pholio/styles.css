@@ -9,6 +9,23 @@ html::-webkit-scrollbar {
     scroll-behavior: smooth
 }
 
+pre {
+    overflow-x: auto;
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word;
+
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+ }
+
+ pre::-webkit-scrollbar {
+    display: none;
+    scroll-behavior: smooth
+}
+
 .text-pink {
     color: #ff7373
 }

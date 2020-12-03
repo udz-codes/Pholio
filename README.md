@@ -3,7 +3,7 @@
     <img src="pholio/static/pholio/src/Pholio.svg" alt="Pholio" width="200" >
   </a>
 
-  <h3 align="center">Setup a portfolio without writing any code</h3>
+  <h3 align="center">Setup a personal portfolio webpage without writing any code</h3>
 
   <p align="center">
     <a href="https://pholio.tech" target="_blank"><strong>Visit website »</strong></a>&nbsp&nbsp

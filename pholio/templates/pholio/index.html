@@ -2,6 +2,10 @@
 
 {% block title %}Pholio{% endblock %}
 
+{% block linktitle %}
+    <meta property="og:title" content="Pholio - Portfolio webpage creator">
+{% endblock %}
+
 {% block body %}
     {% if user.is_authenticated %}
         <h1>Welcome</h1>

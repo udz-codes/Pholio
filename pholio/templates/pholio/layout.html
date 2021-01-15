@@ -6,7 +6,8 @@
         <title>{% block title %}{% endblock %}</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta property="og:title" content="Pholio - Portfolio webpage creator">
+        {% block linktitle %}
+        {% endblock %}
         <meta property="og:image" content="{% static 'pholio/src/pholio-jpg.jpg' %}">
         <meta property="og:description" content="A website to setup a portfolio webpage for yourself.">
         <link rel="stylesheet" href="{% static 'pholio/bootstrap/bootstrap.min.css' %}">

@@ -2,6 +2,10 @@
 
 {% block title %}Pholio - {{data.name}}{% endblock %}
 
+{% block linktitle %}
+    <meta property="og:title" content="{{data.name}} | Pholio">
+{% endblock %}
+
 {% block body %}
     <div class="col-12 p-0 m-0 mb-5">
         <div class="col-12 animated_background d-flex align-items-center justify-content-center" style="height: 40vh; border-bottom-right-radius: 2em; border-bottom-left-radius: 2em;">

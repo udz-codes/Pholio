@@ -321,7 +321,7 @@
                             <span id="start-{{experience.id}}">{{experience.startdate}}</span> - <span id="end-{{experience.id}}">Present</span>
                             {% endif %}
                         </h6>
-                        <p class="text-secondary" id="description-{{experience.id}}">{{experience.description}}</p>
+                        <pre class="text-secondary" id="description-{{experience.id}}" style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">{{experience.description}}</pre>
                     </div>
                 {% endfor %}
 
@@ -619,7 +619,7 @@
                             <span id="project-start-{{project.id}}">{{project.startdate}}</span> - <span id="project-end-{{project.id}}">Ongoing</span>
                             {% endif %}
                         </h6>
-                        <p class="text-secondary" id="project-description-{{project.id}}">{{project.description}}</p>
+                        <pre class="text-secondary" id="project-description-{{project.id}}" style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">{{project.description}}</pre>
                         <p class="text-dark">Github: <span class="text-muted" id="project-github-{{project.id}}">{{project.github}}</span></p>
                         <p class="text-dark">Website: <span class="text-muted" id="project-website-{{project.id}}">{{project.website}}</span></p>
                     </div>
@@ -674,7 +674,7 @@
                             
                             <div class="form-group mt-3">
                                 <label for="about-input">Description</label>
-                                <textarea id="project-description" class="form-control" name="about" style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);" placeholder="description of your project..." rows="3"></textarea>
+                                <textarea id="project-description" class="form-control" name="about" style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);" placeholder="description of your project..." rows="5"></textarea>
                             </div>
 
                             <div class="form-group">
@@ -748,7 +748,7 @@
                             
                             <div class="form-group mt-3">
                                 <label for="about-input">Description</label>
-                                <textarea id="project-description-add" class="form-control" name="about" style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);" placeholder="description of your project..." rows="3"></textarea>
+                                <textarea id="project-description-add" class="form-control" name="about" style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);" placeholder="description of your project..." rows="5"></textarea>
                             </div>
 
                             <div class="form-group">
@@ -928,7 +928,7 @@
                             <span id="education-start-{{education.id}}">{{education.startyear}}</span> - <span id="education-end-{{education.id}}">Ongoing</span>
                             {% endif %}
                         </h6>
-                        <p class="text-secondary" id="education-description-{{education.id}}">{{education.description}}</p>
+                        <pre class="text-secondary" id="education-description-{{education.id}}" style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">{{education.description}}</pre>
                     </div>
                 {% endfor %}
 
@@ -1011,7 +1011,7 @@
                                 
                                 <div class="form-group mt-3">
                                     <label for="about-input">Description</label>
-                                    <textarea id="education-description" class="form-control" name="about" style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);" placeholder="Description of your education..." rows="3"></textarea>
+                                    <textarea id="education-description" class="form-control" name="about" style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);" placeholder="Description of your education..." rows="5"></textarea>
                                 </div>
 
                                 <div class="row col-12 p-0 m-0">
@@ -1102,7 +1102,7 @@
                                 
                                 <div class="form-group mt-3">
                                     <label>Description</label>
-                                    <textarea id="education-description-add" class="form-control" name="about" style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);" placeholder="Description of your education..." rows="3"></textarea>
+                                    <textarea id="education-description-add" class="form-control" name="about" style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);" placeholder="Description of your education..." rows="5"></textarea>
                                 </div>
 
                                 <div class="row col-12 p-0 m-0">
@@ -1373,8 +1373,8 @@
                         <h6 class="font-weight-normal">
                             <span id="certificate-date-{{certificate.id}}">{{certificate.date}}</span>
                         </h6>
-                        <p class="text-secondary p-0 m-0" >Credential ID: <span id="certificate-credential-{{certificate.id}}">{{certificate.credential}}</span></p>
-                        <p class="text-secondary p-0 m-0" >Certificate Link: <span id="certificate-link-{{certificate.id}}">{{certificate.certificate}}</span></p>
+                        <p class="text-secondary p-0 m-0" ><span class="font-weight-bold">Credential ID: </span><span id="certificate-credential-{{certificate.id}}">{{certificate.credential}}</span></p>
+                        <p class="text-secondary p-0 m-0" ><span class="font-weight-bold">Certificate Link: </span><span id="certificate-link-{{certificate.id}}">{{certificate.certificate}}</span></p>
                     </div>
                 {% endfor %}
                 

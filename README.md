@@ -14,15 +14,13 @@
 ___
 
 <h1 align="center">About The Project</h1>
+<p align="center">A portfolio website but not like a usual portfolio that is created for a single user. Here, users can register for an account and set up a personal portfolio webpage by just entering their information, without writing any code.</p>
+<p align="center">Users are provided with various sections on a single page webpage like About, Experience, Projects, Education, Skills and Certifications. They have complete control over what information they want to add in these sections, what sections of the webpage they want the world to see and all of the information is presented in a single webpage dedicated to that user.</p>
 <br>
 <p align="center">
   <img src="https://media.giphy.com/media/zIX5gcH1j5cSSmZIKZ/giphy.gif" width="70%"><br>
   <h4 align="center">Demo portfolio : <a href="https://pholio.tech/john-doe"><strong>pholio.tech/john-doe »</strong></a></h4><br>
 </p>
-
-<p>It is a portfolio website, but not a traditional one. Here, anyone can register for an account and create their personal portfolio webpage, without writing a single line of code.</p>
-<p>Just input information about yourself in profile section and you have you portfolio ready at <strong>pholio.tech/your-username</strong></p>
-<p>User has complete control over what sections they want the world to see, how to format text in their information, and a beautiful design to present that information.</p>
 
 ### Built With
 * [Python](https://www.python.org)

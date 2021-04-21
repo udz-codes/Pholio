@@ -157,6 +157,11 @@ pre {
     font-size: 4rem
 }
 
+.about-text{
+    font-size: 1.5rem;
+    text-align-last: center;
+}
+
 @media only screen and (max-width:600px) {
     .main-heading {
         font-size: 2.5em;
@@ -192,6 +197,13 @@ pre {
     }
     .section-heading {
         font-size: 3rem
+    }
+    .about-text{
+        font-size: 1.12rem;
+        text-align-last: center;
+    }
+    .proj-desc-text{
+        text-align-last: center;
     }
 }
 

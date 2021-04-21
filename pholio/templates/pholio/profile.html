@@ -1153,7 +1153,6 @@
                     const education_elements = document.querySelectorAll(".edit-education")
 
                     for(var i=0; i < education_elements.length; i++){
-                        console.log(education_elements[i])
                         education_elements[i].onclick=function(){
                             fillEducationForm(this.dataset.id)
                         }
@@ -1237,7 +1236,7 @@
             <div id="skills-view" class="card shadow mt-5 p-3 pb-3 profile-view">
                 <h1 class="text-center">Skills</h1>
                 <hr class="col-12">
-                <div class="col-12 d-flex flex-column align-items-center justify-content-center p-0 m-0">
+                <div class="col-12 d-flex flex-column align-items-center justify-content-center p-0 m-0 mb-4">
                     
                     {% for category in skillCategories %}
                     <div class="col-12 d-flex flex-sm-row flex-sm-nowrap flex-wrap align-items-center justify-content-center p-0 m-0 mt-4">
@@ -1254,8 +1253,8 @@
                                         {% for skill in skills %}
                                             {% if skill.category == category %}
                                             <li id="skill-{{skill.id}}" class="row p-0 font-weight-bold rounded-pill bg-dark text-white m-2" style="font-size: smaller;">
-                                                <p class="p-1 m-0 pl-3 pr-0">{{skill.name}}</p>
-                                                <a class="text-pink p-1 pr-2 skillsDel" data-skillId="{{skill.id}}" data-skillName="{{skill.name}}">
+                                                <p class="p-1 m-0 pl-3 pr-0" id="del-{{skill.id}}">{{skill.name}}</p>
+                                                <a class="text-pink p-1 pr-2 skillsDel" data-skillId="{{skill.id}}" data-skillName="{{skill.name}}" onclick="deleteSkill('{{skill.id}}');">
                                                     <i class="fas fa-times-circle"></i>
                                                 </a>
                                             </li>
@@ -1271,7 +1270,7 @@
                         </div>
                     </div>
                     {% endfor %}
-                    <p class="text-danger mt-4 text-center" style="font-size: 1em;">Reload once to enable deletion for recently added skills.</p>
+                    <!-- <p class="text-danger mt-4 text-center" style="font-size: 1em;">Reload once to enable deletion for recently added skills.</p> -->
 
                     <script>
 
@@ -1284,31 +1283,21 @@
                                 categories[i].classList.add('text-muted')
                             }
                         }
-                        
-                        const items = document.querySelectorAll(".skillsDel")
-
-                        for(var i=0; i<items.length; i++)
-                        {
-                            
-                            items[i].onclick=function(){
-                                
-                                var check = confirm(`Delete ${this.getAttribute("data-skillName")} from skills ?`)
-
-                                if(check == true){
-                                    deleteSkill(this.getAttribute("data-skillId"))
-                                }
-                            
-                            }
-
-                        }
 
                         function deleteSkill(skill_id){
-                            fetch(`/user/profile/delSkill/${skill_id}`, {
-                            method: 'POST',
-                            })
-                            .then(()=>{
-                                document.querySelector(`#skill-${skill_id}`).style.display="none"
-                            })
+                            var skill_id_new = parseInt(skill_id)
+                            var skillname = document.querySelector(`#del-${skill_id_new}`).innerHTML;
+
+                            var checkit = confirm(`Delete ${skillname} from skills ?`)
+
+                            if(checkit == true){
+                                fetch(`/user/profile/delSkill/${skill_id_new}`, {
+                                method: 'POST',
+                                })
+                                .then(()=>{
+                                    document.querySelector(`#skill-${skill_id_new}`).style.display="none"
+                                })
+                            }
                         }
 
                         const forms = document.querySelectorAll(".skills-forms")
@@ -1333,13 +1322,14 @@
                             .then((result)=>{
 
                                 document.querySelector(`#skill-input-${cat_id}`).value = ''
-
-
+                                
                                 const value = document.querySelector(`#category-${cat_id}`).innerHTML + `
-                                <li class="row p-0 font-weight-bold rounded-pill bg-danger text-white m-2" style="font-size: smaller;">
-                                    <p class="p-1 m-0 pl-3 pr-3 pr-0">${name}</p>
-                                </li>
-                                `
+                                <li id="skill-${result.message}" class="row p-0 font-weight-bold rounded-pill bg-dark text-white m-2" style="font-size: smaller;">
+                                    <p class="p-1 m-0 pl-3 pr-0" id="del-${result.message}">${name}</p>
+                                    <a class="text-pink p-1 pr-2 skillsDel" data-skillId="${result.message}" data-skillName="${name}" onclick="deleteSkill('${result.message}');">
+                                        <i class="fas fa-times-circle"></i>
+                                    </a>
+                                </li>`
                                 document.querySelector(`#category-${cat_id}`).innerHTML = value
                                 document.querySelector(`#collapse-${cat_id}`).classList.add('show')
                             })
@@ -1582,6 +1572,4 @@
             })
         </script>
     </div>
-
-    
 {% endblock %}

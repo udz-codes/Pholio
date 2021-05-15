@@ -1,0 +1,22 @@
+<div class="col-12 col-sm-10 row p-0 m-0 d-flex align-items-center justify-content-center mt-5" style="min-height: 40vh;">
+    <div class="col-11 card shadow d-flex flex-column align-items-center justify-content-center mt-5 pb-5" style="border-radius: 1em;">
+        <h1 class="text-dark p-3 font-weight-bold mb-0 mt-2 animated_text section-heading">Education</h1>
+        <hr class="col-12 pb-5">
+        {% if educations|length > 0 %}
+            {% for education in educations %}
+                <div class="col-12 col-sm-10 mb-4">
+                    <h4 class="text-dark font-weight-bold">{{education.title}}</h4>
+                    <h5 class="text-muted font-weight-bold">{{education.field}}</h5>
+                    {% if education.endyear %}
+                    <h5 class="text-muted font-weight-normal">{{education.school}} ({{education.startyear}}-{{education.endyear}})</h5> 
+                    {% else %}
+                    <h5 class="text-muted font-weight-normal">{{education.school}} ({{education.startyear}}-Ongoing)</h5>
+                    {% endif %}
+                    <pre class="text-secondary" style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">{{education.description}}</pre>
+                </div>
+            {% endfor %}
+        {% elif educations|length == 0 and data.email == request.user.username %}
+            <h5 class="col-12 col-sm-8 text-muted text-center text-wrap font-weight-normal">Click <a href="user/profile#education-view" style="text-decoration: none; cursor: pointer;">here</a> to add information about your education.</h5>
+        {% endif %}
+    </div>
+</div>

@@ -1,0 +1,22 @@
+<div class="col-12 col-sm-10 p-0 m-0 d-flex align-items-center justify-content-center mt-3" style="min-height: 40vh;">
+    <div class="col-11 card shadow d-flex flex-column align-items-center justify-content-center pt-4 pb-5" style="border-radius: 1em;">
+        <h1 class="text-dark font-weight-bold animated_text section-heading">Experience</h1>
+        <hr class="col-12 mt-4 mb-5">
+        {% if experiences|length > 0 %}
+            {% for experience in experiences %}
+                <div class="col-12 col-sm-10 mt-4">
+                    <h4 class="text-dark font-weight-bold">{{experience.title}}</h4>
+                    <h5 class="text-danger font-weight-bold">{{experience.company}}</h5>
+                    {% if experience.enddate %}
+                    <h6 class="text-muted font-weight-bolder">{{experience.startdate }} - {{experience.enddate}}</h6>
+                    {% else %}
+                    <h6 class="text-muted font-weight-bolder">{{experience.startdate }} - Present</h6>
+                    {% endif %}
+                    <pre class="text-secondary" style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">{{experience.description}}</pre>
+                </div>
+            {% endfor %}
+        {% elif experiences|length == 0 and data.email == request.user.username %}
+                <h5 class="col-12 col-sm-8 mt-2 text-muted text-center text-wrap font-weight-normal">Click <a href="user/profile#experience-view" style="text-decoration: none; cursor: pointer;">here</a> to add information about your professional experience.</h5>
+        {% endif %}
+    </div>
+</div>

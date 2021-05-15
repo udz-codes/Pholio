@@ -1,0 +1,23 @@
+<div class="col-12 col-sm-10 p-0 m-0 d-flex align-items-center justify-content-center mt-5" style="min-height: 40vh;">
+    <div class="col-11 card shadow d-flex flex-column align-items-center justify-content-center pt-4 pb-5" style="border-radius: 1em;">
+        <h1 class="text-dark font-weight-bold mt-2 animated_text section-heading">Certifications</h1>
+        <hr class="col-12 mt-4">
+        {% if certifications|length > 0 %}
+            {% for cert in certifications %}
+            <div class="col-12 col-sm-10 mt-5">
+                <h4 class="text-dark font-weight-bold">{{cert.title}}</h4>
+                <h5 class="text-muted font-weight-bold">{{cert.organisation}}</h5>
+                <h6 class="text-muted font-weight-normal">{{cert.date}}</h6>
+                {% if cert.credential %}
+                <p class="text-dark mb-1">Credential ID&nbsp&nbsp<span class="text-secondary">{{cert.credential}}</span></p>
+                {% endif %}
+                {% if cert.certificate %}
+                <a class="text-danger" href="{{cert.certificate}}" target="_blank" style="text-decoration: none;">Certificate</a>
+                {% endif %}
+            </div>
+            {% endfor %}
+        {% elif certifications|length == 0 and data.email == request.user.username %}
+            <h5 class="col-12 col-sm-8 text-muted text-center text-wrap font-weight-normal mt-4 pt-2">Click <a href="user/profile#certifications-view" style="text-decoration: none; cursor: pointer;">here</a> to add information about your certifications earned by you.</h5>
+        {% endif %}
+    </div>
+</div>

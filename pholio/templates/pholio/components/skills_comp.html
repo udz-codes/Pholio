@@ -1,0 +1,52 @@
+<div class="col-12 col-sm-10 row p-0 m-0 d-flex align-items-center justify-content-center mt-5 mb-5" style="min-height: 10vh;">
+    <div class="col-12 p-3 pt-4 pb-4 p-sm-5 m-0 d-flex flex-column align-items-center justify-content-center mt-5 mb-5">
+        <h1 class="text-dark font-weight-bold mb-3 animated_text section-heading">Skills</h1>
+        
+        {% if skills|length > 0 %}
+        <div class="col-12 col-sm-8 d-flex flex-column align-items-center justify-content-center">
+            
+            {% for category in skillCategories %}
+            <div class="col-12 p-0 m-0 mt-4">
+                <div class="card shadow border-0" style="border-radius: 1em;">
+                    <h5 class="card-header collapsed border-0" data-toggle="collapse" href="#collapse-{{category.id}}" aria-expanded="true" style="cursor: pointer; background-color: rgba(0, 0, 0, 0);">
+                        <p aria-controls="collapse-{{category.id}}" id="heading-{{category.title}}" class="d-flex align-items-center justify-content-between skills-head text-dark p-0 m-0" style="text-decoration: none ;">
+                            {{category.title}}
+                            <i class="fa fa-chevron-down pull-right"></i>
+                        </p>
+                    </h5>
+                    <div id="collapse-{{category.id}}" class="collapse" aria-labelledby="heading-{{category.id}}">
+                        <div class="card-body p-2 pb-3">
+                            <ul class="row m-0 p-0 justify-content-center skillsCategories" style="list-style-type: none;">
+                                {% for skill in skills %}
+                                    {% if skill.category == category %}
+                                    <li class="p-1 pl-4 font-weight-bold pr-4 rounded-pill bg-dark text-white m-1" style="font-size: medium;">{{skill.name}}</li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+            <script>
+
+                const categories = document.querySelectorAll(".skillsCategories")
+
+                for(var i = 0; i < categories.length; i++)
+                {   
+                    if(!categories[i].firstElementChild)
+                    {
+                        categories[i].parentElement.parentElement.parentElement.parentElement.style.display = "none"
+                    }
+                }
+
+            </script>
+
+        </div>
+
+        {% elif skills|length == 0 and data.email == request.user.username %}
+            <h5 class="col-12 col-sm-8 text-muted text-center text-wrap font-weight-normal">Click <a href="user/profile#skills-view" style="text-decoration: none; cursor: pointer;">here</a> to add your skills.</h5>
+        {% endif %}
+    </div>
+</div>

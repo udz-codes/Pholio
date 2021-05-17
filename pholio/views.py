@@ -7,7 +7,6 @@ from django.db import IntegrityError
 from .models import User, Profile, Social, Experience, Project, Education, Certification, SkillCategory, Skill, Sections
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-# Create your views here.
 
 def index(request):
 
@@ -20,6 +19,31 @@ def index(request):
         }))
     else:
         return render(request, "pholio/index.html")
+
+@csrf_exempt
+def image_view(request):
+    
+    try:
+        user_profile = Profile.objects.get(user=request.user)
+    except Profile.DoesNotExist:
+        return JsonResponse({"error": "User not found."}, status=404)
+
+    if request.method == "POST":
+
+        user_profile.image.delete()
+        user_profile.image = request.FILES['customFile']
+        user_profile.save()
+
+        return HttpResponse(status=204)
+    
+    elif request.method == "PUT":
+
+        conf = json.loads(request.body)
+
+        if conf["confirm"] == "yes":
+            user_profile.image.delete()
+
+        return HttpResponse(status=204)
 
 def about_view(request):
     return render(request, "pholio/about.html")

@@ -23,6 +23,7 @@ class Profile(models.Model):
     title = models.CharField(max_length=100, blank=True)
     about = models.TextField(blank=True)
     email = models.CharField(max_length=100)
+    image = models.ImageField(default = None, upload_to='profile_pics', null=True, blank=True)
 
     def __str__(self):
         return f"{self.email} : {self.username}"

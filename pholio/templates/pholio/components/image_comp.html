@@ -1,0 +1,80 @@
+<div class="col-12 mt-5 d-flex flex-column align-items-center justify-content-center p-0">
+    {% if data.image %}
+    <div class="shadow rounded-circle mb-2" style="width: 30vh; height: 30vh;background-image: url('{{ data.image.url }}'); background-position: center; background-size: cover;"></div>
+    {% else %}
+    <div class="shadow rounded-circle mb-2" style="width: 30vh; height: 30vh;background-image: url('https://i.ibb.co/MVDTshr/missing.jpg'); background-position: center; background-size: cover;"></div>
+    {% endif %}
+    <div class="col-12 col-sm-5 d-flex flex-row align-items-center justify-content-around">
+        <button data-toggle="modal" data-target="#imageModal" class="col-6 mr-1 social-tip float-right btn btn-primary font-weight-bold mt-4">Update Image</button>
+        {% if data.image %}
+        <button class="col-6 ml-1 social-tip float-right btn btn-danger font-weight-bold mt-4" onclick="handleDelete();">Remove Image</button>
+        {% endif %}
+    </div>
+</div>
+
+<div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true" style="background-color: rgba(0, 0, 0, 0.247); backdrop-filter: blur(5px);">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="border-radius: 1em; background-color: rgb(248, 248, 248);">
+        <div class="modal-header text-primary pt-3 pb-0" style="border: 0; border-top-left-radius: 1em; border-top-right-radius: 1em;">
+            <h5 class="modal-title" id="imageModalLabel">Update Image</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true" class="text-primary">&times;</span>
+            </button>
+        </div>
+
+        <div class="modal-body" style="border-bottom-left-radius: 1em; border-bottom-right-radius: 1em;">
+            <form id="imageForm" action="{% url 'updateImage' %}" method="post" enctype="multipart/form-data" class="d-flex flex-column align-items-center justify-content-center">
+                {% csrf_token %}
+                {% if data.image %}
+                <div id="output" class="rounded-circle mb-3" style="width: 30vh; height: 30vh;background-image: url('{{ data.image.url }}'); background-position: center; background-size: cover;"></div>
+                {% else %}
+                <div id="output" class="rounded-circle mb-3" style="width: 30vh; height: 30vh;background-image: url('https://i.ibb.co/MVDTshr/missing.jpg'); background-position: center; background-size: cover;"></div>
+                {% endif %}
+                <div class="col-12 shadow col-sm-6 custom-file mb-3">
+                    <input type="file" class="custom-file-input" id="customFile" onchange="loadFile(event)" name="customFile">
+                    <label class="custom-file-label border-dark font-dark" for="customFile">Choose file</label>
+                </div>
+                <small class="text-primary text-center">Upload a square and properly cropped image for best results.</small>
+                <button class="btn btn-danger font-weight-bold col-12 mt-3" type="submit">Update</button>
+            </form>
+        </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    
+    document.getElementById('imageForm').onsubmit = function(){
+        setTimeout(function(){ window.location.reload(); }, 2000);
+    }
+
+    function handleDelete() {
+        var check = confirm("Are you sure you want to remove your current profile picture?");
+
+        if(check){
+            fetch("/user/profile/updateImage",{
+                method: 'PUT',
+                body: JSON.stringify({
+                    confirm: 'yes'
+                })
+            })
+            .then(()=>{
+                window.location.reload()
+            })
+        }
+    }
+
+    $(".custom-file-input").on("change", function() {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
+
+    var loadFile = function(event) {
+        var output = document.getElementById('output');
+            
+        output.style.backgroundImage = `url(${URL.createObjectURL(event.target.files[0])})`;
+        output.onload = function() {
+            URL.revokeObjectURL(output.src)
+        }
+    };
+</script>

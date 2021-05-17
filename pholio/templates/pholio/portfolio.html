@@ -7,6 +7,13 @@
 {% endblock %}
 
 {% block body %}
+    {% if data.image %}
+    <div class="col-12 bg-white d-flex flex-row align-items-end justify-content-center" style="z-index: 999; height: 10vh;">
+        <div class="col-12 bg-white d-flex flex-row align-items-center justify-content-center" style="height: 0px;">
+            <div class="rounded-circle mb-2" style="width: 20vh; height: 20vh;background-image: url('{{ data.image.url }}'); background-position: center; background-size: cover;"></div>
+        </div>
+    </div>
+    {% endif %}
     <div class="col-12 p-0 m-0 mb-5 d-flex flex-column align-items-center">
         <div class="col-12 animated_background d-flex align-items-center justify-content-center" style="height: 40vh; border-bottom-right-radius: 2em; border-bottom-left-radius: 2em;">
             <div class="col-12 p-0 m-0 d-flex flex-column align-items-center justify-content-center">
@@ -14,7 +21,7 @@
                     <div class="text-center">
                         <h1 class="text-light font-weight-bold  profile-name mb-3">{{data.name}}</h1>
                         {% if data.title %}
-                            <h2 class="text-light title-text text-center p-sm-0 mt-4 mb-4">{{data.title}}</h2>
+                            <h2 class="text-light title-text text-center p-sm-0 mt-4 mb-0">{{data.title}}</h2>
                         {% elif not data.title and data.email == request.user.username %}
                             <p class="text-light title-text text-center p-sm-0 mt-4 mb-4 h5">Click <a class="text-warning" href="user/profile" style="text-decoration: none; cursor: pointer;">here</a> to add title.</p>
                         {% endif %}

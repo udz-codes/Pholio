@@ -15,12 +15,13 @@
         <script src="https://kit.fontawesome.com/f3f72f81a3.js" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="{% static 'pholio/styles.css' %}">
         <link rel="stylesheet" href="{% static 'pholio/about.css' %}">
-        <link rel = "icon" href="{% static 'pholio/src/icon.svg' %}"> 
+        <link rel = "icon" href="{% static 'pholio/src/icon.svg' %}">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
         {% block script %}
         {% endblock %}
     </head>
     <body class="main-body white_background">
-        <nav class="navbar col-12 shadow main-nav navbar-expand-lg navbar-light d-flex flex-row align-items-center justify-content-center" style="z-index: 999; min-height: 8vh">
+        <nav class="navbar col-12 shadow main-nav navbar-expand-lg navbar-light d-flex flex-row align-items-center justify-content-center" style="z-index: 998; min-height: 8vh">
             <div class="col-sm-9 row d-sm-flex flex-sm-row align-items-center justify-content-sm-around justify-content-between p-0">
                 <a class="navbar-brand col-4 col-sm-2 p-0 mr-0 pt-1 pb-1 d-flex align-items-center" href="{% url 'index' %}">
                     <img src="{% static 'pholio/src/Pholio.svg' %}" class="col-11 col-sm-8 p-0 m-0">

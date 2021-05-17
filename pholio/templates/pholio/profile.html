@@ -5,7 +5,6 @@
 {% block linktitle %}
     <meta property="og:title" content="Pholio - Portfolio webpage creator">
 {% endblock %}
-
 {% block body %}
     <!-- Navbar ------------------------------------------------------------------------------------------------------- -->
     <nav class="navbar navbar-dark profile-nav fixed-bottom col-12 d-flex flex-row flex-wrap align-items-center justify-content-center m-0 p-1" style="z-index: 777;">
@@ -18,6 +17,7 @@
             <a class="btn btn-light btn-sm text-danger font-weight-bold m-1 m-sm-2 nav-button shadow-lg flex-fill" data-view="certifications" id="certifications" href="#certifications-view">Certifications</a>
         </div>
     </nav>
+
     <div class="col-12 d-flex flex-column align-items-center mb-3 mb-sm-5 pb-5">
     
         <div class="col-12 col-sm-8 mb-5 pb-5 mb-sm-4 pb-sm-0">
@@ -49,6 +49,7 @@
                     alert("Copied '" + copyText.value + "' to clipboard.");
                 }
             </script>
+            {% include "./components/image_comp.html" with data=data %}
             <!-- Choose sections ------------------------------------------------------------------------------------------------------- -->
             <div class="col-12 p-0 m-0 mt-5">
                 <div class="card shadow border-0" style="border-radius: 1em;">
@@ -157,7 +158,6 @@
                     </div>
                 </div>
             </div>
-
             <!-- Views ------------------------------------------------------------------------------------------------------- -->
             <div id="introduction-view" class="card shadow-sm mt-5 p-3 align-items-center profile-view">
                 <div class="col-12 p-0 m-0 d-flex align-items-center justify-content-sm-center">
@@ -210,43 +210,40 @@
                     </div>
                 </div>
                 <hr class="col-12">
-            <form id="introSave" class="col-12 p-0 m-0 d-flex flex-column align-items-center justify-content-center" onsubmit="return false">    
-                <div class="col-12 d-flex flex-column align-items-center justify-content-center mt-3 p-0 m-0">
-                    <div class="col-12 d-sm-flex flex-sm-row mb-3 p-0 m-0">
-                        <h5 class="col-12 col-sm-2 text-sm-right p-0">Full Name:</h5>
-                        <input type="text" class="col-12 col-sm-9 form-control text-muted ml-sm-3 text-monospace" id="nameInput" value="{{data.name}}" disabled="true" placeholder="Your full name..." required>
+                <form id="introSave" class="col-12 p-0 m-0 d-flex flex-row align-items-center justify-content-center" onsubmit="return false">            
+                    <div class="col-12 d-flex flex-column align-items-center justify-content-center mt-3 p-0 m-0">
+                        <div class="col-12 d-sm-flex flex-sm-row mb-3 p-0 m-0">
+                            <h5 class="col-12 col-sm-2 text-sm-right p-0">Full Name:</h5>
+                            <input type="text" class="col-12 col-sm-9 form-control text-muted ml-sm-3 text-monospace" id="nameInput" value="{{data.name}}" disabled="true" placeholder="Your full name..." required>
+                        </div>
+                        <div class="col-12 d-sm-flex flex-sm-row mb-3 p-0 m-0">
+                            <h5 class="col-12 col-sm-2 text-sm-right p-0">Title / Tagline:</h5>
+                            <input type="text" class="col-12 col-sm-9 form-control text-muted ml-sm-3 text-monospace" id="titleInput" value="{{data.title}}" placeholder="Words that describe you best..." disabled="true">
+                        </div>
+                        <div class="col-12 d-sm-flex flex-sm-row mb-3 p-0 m-0">
+                            <h5 class="col-12 col-sm-2 text-sm-right p-0">About:</h5>
+                            <textarea
+                                class="col-12 col-sm-9 form-control text-muted ml-sm-3 text-monospace"
+                                id="aboutInput"
+                                disabled="true"
+                                rows="6"
+                                oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
+                                placeholder="A short paragraph about yourself..."
+                            >{{data.about}}</textarea>
+                        </div>
+                        <div class="col-12 col-sm-6 align-items-center justify-content-around" id="introSubmission" style="display: none;">
+                            <button type="submit" class="save-tip btn btn-success rounded-circle" style="width: 4rem; height: 4rem;">
+                                <i class="fas fa-check ml-auto mr-auto" style="font-size: 2rem;"></i>
+                            </button>
+                            <button id="introCancel" class="cancel-tip btn btn-danger rounded-circle" style="width: 4rem; height: 4rem;">
+                                <i class="fas fa-times-circle ml-auto mr-auto" style="font-size: 2rem;"></i>
+                            </button>
+                        </div>
+                        <button id="introEdit" class="edit-tip btn btn-primary rounded-circle" style="width: 4rem; height: 4rem;">
+                            <i class="fas fa-pen-nib ml-auto mr-auto" style="font-size: 1.5rem;"></i>
+                        </button>
                     </div>
-                    <div class="col-12 d-sm-flex flex-sm-row mb-3 p-0 m-0">
-                        <h5 class="col-12 col-sm-2 text-sm-right p-0">Title / Tagline:</h5>
-                        <input type="text" class="col-12 col-sm-9 form-control text-muted ml-sm-3 text-monospace" id="titleInput" value="{{data.title}}" placeholder="Words that describe you best..." disabled="true">
-                    </div>
-                    <div class="col-12 d-sm-flex flex-sm-row mb-3 p-0 m-0">
-                        <h5 class="col-12 col-sm-2 text-sm-right p-0">About:</h5>
-                        <textarea
-                            class="col-12 col-sm-9 form-control text-muted ml-sm-3 text-monospace"
-                            id="aboutInput"
-                            disabled="true"
-                            rows="4"
-                            oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
-                            placeholder="A short paragraph about yourself..."
-                        >{{data.about}}</textarea>
-                    </div>
-                </div>
-
-                <div class="col-12 col-sm-6 align-items-center justify-content-around" id="introSubmission" style="display: none;">
-                    <button type="submit" class="save-tip btn btn-success rounded-circle" style="width: 4rem; height: 4rem;">
-                        <i class="fas fa-check ml-auto mr-auto" style="font-size: 2rem;"></i>
-                    </button>
-                    <button id="introCancel" class="cancel-tip btn btn-danger rounded-circle" style="width: 4rem; height: 4rem;">
-                        <i class="fas fa-times-circle ml-auto mr-auto" style="font-size: 2rem;"></i>
-                    </button>
-                </div>
-
-            </form>
-
-            <button id="introEdit" class="edit-tip btn btn-primary rounded-circle" style="width: 4rem; height: 4rem;">
-                <i class="fas fa-pen-nib ml-auto mr-auto" style="font-size: 1.5rem;"></i>
-            </button>
+                </form>
 
                 <script>
                     document.querySelector("#introEdit").onclick = function(){

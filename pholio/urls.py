@@ -18,6 +18,7 @@ urlpatterns = [
     path("user/profile", views.profile, name="profile"),
         # Introduction
     path("user/profile/introduction", views.intro_view, name="introduction"),
+    path("user/profile/updateImage", views.image_view, name="updateImage"),
 
         # Socials
     path("user/profile/socials", views.socials, name="socials"),

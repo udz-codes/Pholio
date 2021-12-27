@@ -6,7 +6,7 @@
   <h3 align="center">Setup a personal portfolio webpage without writing any code</h3>
 
   <p align="center">
-    <a href="https://pholio.tech" target="_blank"><strong>Visit website »</strong></a>&nbsp&nbsp
+    <a href="https://pholio1.herokuapp.com" target="_blank"><strong>Visit website »</strong></a>&nbsp&nbsp
     <a href="https://youtu.be/Vz7sHj9eIv0"><strong>Youtube video »</strong></a>
   </p>
 </p>
@@ -19,7 +19,7 @@ ___
 <br>
 <p align="center">
   <img src="https://media.giphy.com/media/zIX5gcH1j5cSSmZIKZ/giphy.gif" width="70%"><br>
-  <h4 align="center">Demo portfolio : <a href="https://pholio.tech/john-doe"><strong>pholio.tech/john-doe »</strong></a></h4><br>
+  <h4 align="center">Demo portfolio : <a href="https://pholio1.herokuapp.com/john-doe"><strong>pholio.tech/john-doe »</strong></a></h4><br>
 </p>
 
 ### Built With
